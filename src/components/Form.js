@@ -1,11 +1,61 @@
 import React, {Component} from 'react';
 
 export default class Form extends Component {
+
+    //?NOTE: What's the purpose of using a controlled form here?
+    //?NOTE: What's the purpose of using a class component here?
+
+    // Hold the local query in state and update it on change to the input
+    state = {
+        localQuery: '',
+        endpoint: 'https://www.flickr.com/services/rest/',
+        options: {
+            method: 'flickr.photos.search',
+            api_key: this.props.apiKey,
+            tags: this.state?.localQuery || '',
+            privacy_filter: '1',
+            safe_search: '1',
+            content_type: '1',
+            media: 'photos',
+            is_commons: 'true',
+            extras:
+                'description%2C+license%2C+date_upload%2C+date_taken%2C+owner_name%2C+icon_server%2C+original_format%2C+last_update%2C+geo%2C+tags%2C+machine_tags%2C+o_dims%2C+views%2C+media%2C+path_alias%2C+url_sq%2C+url_t%2C+url_s%2C+url_q%2C+url_m%2C+url_n%2C+url_z%2C+url_c%2C+url_l%2C+url_o',
+            per_page: '24',
+            format: 'json',
+            nojsoncallback: '1'
+        }
+    }
+
+    // The localQuery will update with every change to the input, but only a return or click on the submit button will call the updateQuery function and update the query in Home.
+    updateLocalQuery = (e) => this.setState({localQuery: e.target.value});
+
+    // Use the endpoint and options to build the API endpoint URL with parameters
+    buildURL = (endpoint, options) => {
+        const keys = Object.keys(options);
+        const optionsString = keys.reduce( (acc, currentKey) => {
+            return acc += currentKey + options.currentKey + "&";
+        }, '');
+        return endpoint + "?" + optionsString;
+    }
+
     render() {
         return (
-            <form className="search-form">
-                <input type="search" name="search" placeholder="Search" required />
-                <button type="submit" className="search-button">
+            <form 
+                className="search-form"
+                onSubmit={(e) => this.props.submitQuery(e,this.buildURL(this.state.endpoint, this.state.options))}
+            >
+                <input 
+                    name="search" 
+                    onChange={this.updateLocalQuery}
+                    placeholder="Search" 
+                    required
+                    type="search" 
+                    value={this.state.localQuery} 
+                    />
+                <button 
+                    className="search-button"
+                    type="submit" 
+                >
                     <svg
                         fill="#fff"
                         height="24"
