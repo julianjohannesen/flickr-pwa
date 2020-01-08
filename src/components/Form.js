@@ -31,26 +31,34 @@ export default class Form extends Component {
 
     // Use the endpoint and options to build the API endpoint URL with parameters
     buildURL = () => {
-        console.log("At the time I call buildURL, the query is: ", this.state.options.tags)
-        // Update the options object with the most recent localQuery value
-        this.setState({
-            options: {...this.state.options, tags: this.state?.localQuery.trim().split().join(",")} 
-        });
         const keys = Object.keys(this.state.options);
         // Reduce the keys object, adding each 'key=value&' parameter as we go, and returning the complete string
         const optionsString = keys.reduce( (acc, currentKey) => {
             return acc += currentKey + "=" + this.state.options[currentKey] + "&";
         }, '');
+        console.log("At the time I return the url, the tags are: ", this.state.options.tags, " and the localQuery is: ", this.state.localQuery)
         // Return the full url string
         return this.state.endpoint + "?" + optionsString;
     }
 
     // On form submit, build the url and call submitQuery
     localSubmit = (e) => {
-        // Build the url string
-        const url = this.buildURL(this.state.endpoint, this.state.options);
-        // Call submit and pass in the event and url string
-        this.props.submitQuery(e, url);
+        this.setState(
+            // Update the options object with the most recent localQuery value
+            { 
+                options: {
+                    ...this.state.options, 
+                    tags: this.state.localQuery.trim().split(' ').join(',')
+                } 
+            }, 
+            // Then, using the updated options, use the callback to build the url
+            ()=>{
+                // Build the url string
+                const url = this.buildURL();
+                // Call submit and pass in the event and url string
+                this.props.submitQuery(e, url);
+            }
+        );
     }
 
     componentDidMount(){
