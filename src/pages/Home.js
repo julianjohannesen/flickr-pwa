@@ -13,9 +13,7 @@ export default class Home extends Component {
 
     // The search form component will call submitQuery when a user submits a search term using the search form
     submitQuery = (e, url) => {
-        // Don't reload the page
-        e.preventDefault();
-        console.log(url);
+        console.log("submitQuery just got called. The url argument is: ", url);
         
         // Fetch the data using the query parameter
         fetchData(url, this.process);

@@ -9,12 +9,12 @@ export default class Form extends Component {
         options: {
             method: 'flickr.photos.search',
             api_key: this.props.apiKey,
-            tags:  '',
-            privacy_filter: '1',
-            safe_search: '1',
-            content_type: '1',
-            media: 'photos',
-            is_commons: 'true',
+            text:  '',
+            // privacy_filter: '1',
+            // safe_search: '1',
+            // content_type: '1',
+            // media: 'photos',
+            // is_commons: 'true',
             extras:
                 'description%2C+license%2C+date_upload%2C+date_taken%2C+owner_name%2C+icon_server%2C+original_format%2C+last_update%2C+geo%2C+tags%2C+machine_tags%2C+o_dims%2C+views%2C+media%2C+path_alias%2C+url_sq%2C+url_t%2C+url_s%2C+url_q%2C+url_m%2C+url_n%2C+url_z%2C+url_c%2C+url_l%2C+url_o',
             per_page: '24',
@@ -36,19 +36,22 @@ export default class Form extends Component {
         const optionsString = keys.reduce( (acc, currentKey) => {
             return acc += currentKey + "=" + this.state.options[currentKey] + "&";
         }, '');
-        console.log("At the time I return the url, the tags are: ", this.state.options.tags, " and the localQuery is: ", this.state.localQuery)
+        console.log("At the time I return the url, the text are: ", this.state.options.text, " and the localQuery is: ", this.state.localQuery)
         // Return the full url string
         return this.state.endpoint + "?" + optionsString;
     }
 
     // On form submit, build the url and call submitQuery
     localSubmit = (e) => {
+
+        e.preventDefault();
+
         this.setState(
             // Update the options object with the most recent localQuery value
             { 
                 options: {
                     ...this.state.options, 
-                    tags: this.state.localQuery.trim().split(' ').join(',')
+                    text: this.state.localQuery.trim()
                 } 
             }, 
             // Then, using the updated options, use the callback to build the url
