@@ -1,9 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component, createRef } from 'react';
 
 export default class Form extends Component {
-
-    //?NOTE: What's the purpose of using a controlled form here?
-    //?NOTE: What's the purpose of using a class component here?
 
     // Hold the local query in state and update it on change to the input
     state = {
@@ -12,7 +9,7 @@ export default class Form extends Component {
         options: {
             method: 'flickr.photos.search',
             api_key: this.props.apiKey,
-            tags: this.state?.localQuery || '',
+            tags:  '',
             privacy_filter: '1',
             safe_search: '1',
             content_type: '1',
@@ -26,28 +23,52 @@ export default class Form extends Component {
         }
     }
 
+    // Create a reference to the search input element in the DOM. We'll use this to set focus.
+    searchRef = createRef();
+
     // The localQuery will update with every change to the input, but only a return or click on the submit button will call the updateQuery function and update the query in Home.
     updateLocalQuery = (e) => this.setState({localQuery: e.target.value});
 
     // Use the endpoint and options to build the API endpoint URL with parameters
-    buildURL = (endpoint, options) => {
-        const keys = Object.keys(options);
+    buildURL = () => {
+        console.log("At the time I call buildURL, the query is: ", this.state.options.tags)
+        // Update the options object with the most recent localQuery value
+        this.setState({
+            options: {...this.state.options, tags: this.state?.localQuery.trim().split().join(",")} 
+        });
+        const keys = Object.keys(this.state.options);
+        // Reduce the keys object, adding each 'key=value&' parameter as we go, and returning the complete string
         const optionsString = keys.reduce( (acc, currentKey) => {
-            return acc += currentKey + options.currentKey + "&";
+            return acc += currentKey + "=" + this.state.options[currentKey] + "&";
         }, '');
-        return endpoint + "?" + optionsString;
+        // Return the full url string
+        return this.state.endpoint + "?" + optionsString;
+    }
+
+    // On form submit, build the url and call submitQuery
+    localSubmit = (e) => {
+        // Build the url string
+        const url = this.buildURL(this.state.endpoint, this.state.options);
+        // Call submit and pass in the event and url string
+        this.props.submitQuery(e, url);
+    }
+
+    componentDidMount(){
+        // Set focus on the input element
+        this.searchRef.current.focus();
     }
 
     render() {
         return (
             <form 
                 className="search-form"
-                onSubmit={(e) => this.props.submitQuery(e,this.buildURL(this.state.endpoint, this.state.options))}
+                onSubmit={this.localSubmit}
             >
                 <input 
-                    name="search" 
+                    name="search"
                     onChange={this.updateLocalQuery}
                     placeholder="Search" 
+                    ref={this.searchRef}
                     required
                     type="search" 
                     value={this.state.localQuery} 

@@ -11,14 +11,17 @@ export default class Home extends Component {
         data: ''
     };
 
-    // The search form component will call updateQuery when a user submits a search term using the search form
-    submitQuery = (e,url) => {
+    // The search form component will call submitQuery when a user submits a search term using the search form
+    submitQuery = (e, url) => {
         // Don't reload the page
         e.preventDefault();
+        console.log(url);
         
         // Fetch the data using the query parameter
-        this.setState({data: async ()=>await fetchData(url)})
+        fetchData(url, this.process);
     };
+
+    process = (data) => this.setState({data: data});
 
     // componentDidUpdate(){
     //     let { tag } = useParams();
@@ -30,6 +33,7 @@ export default class Home extends Component {
     // }
 
     render() {
+        console.log("The response data after processing and setting state: ", this.state.data)
         return (
             <Fragment>
                 <Form submitQuery={this.submitQuery} apiKey={this.props.apiKey} />
