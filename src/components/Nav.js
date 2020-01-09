@@ -1,18 +1,18 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 export default function Nav() {
     return (
         <nav className="main-nav">
             <ul>
                 <li>
-                    <Link to="/">Cats</Link>
+                    <NavLink to="/most-faved" activeClassName="active">Most<br/>Faved</NavLink>
                 </li>
                 <li>
-                    <Link to="/">Dogs</Link>
+                    <NavLink to="/most-viewed">Most<br/>Viewed</NavLink>
                 </li>
                 <li>
-                    <Link to="/">Computers</Link>
+                    <NavLink to="/most-ratioed">Most<br/>Ratio'ed</NavLink>
                 </li>
             </ul>
         </nav>

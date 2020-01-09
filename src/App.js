@@ -22,6 +22,17 @@ class App extends Component {
 						<Route path="/about">
 							<About />
 						</Route>
+						
+						<Route path="/most-faved">
+							<About />
+						</Route>
+						
+						<Route path="/most-viewed">
+							<About />
+						</Route>
+						<Route path="/most-ratioed">
+							<About />
+						</Route>
 
 						<Route path="/search/:tag" children={<Home apiKey={apiKey} />} />
 

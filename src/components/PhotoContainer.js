@@ -9,8 +9,8 @@ export default function PhotoContainer(props) {
     // Map over the photos array and call Photo for each photo
     const generatePhotos = props => {
         // Store the photos array or else store an array with a single error object
-        const photos = props.data?.photos?.photo || false;
-        if (photos) {
+        const photos = props.data?.photos?.photo || [];
+        if (photos.length > 0) {
             return photos.map(photo => <Photo photo={photo} key={uuidv4()} />);
         } else {
             return (
