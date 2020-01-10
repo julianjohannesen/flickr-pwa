@@ -7,11 +7,12 @@ export function fetchData(url, process) {
         .then(data => process(data))
         .catch(error => console.log("Looks like there was a problem!", error));
 
-    // checkStatus takes a promise of fetched data, if the response is 'OK'. Otherwise it reject's the promise, returning a new error with the response status text.
+    // If the server responds with 'ok,' then checkStatus resolves the response, passing it along to whatever comes next. Otherwise it reject's the promise, passing along a new error with the response status text included.
     function checkStatus(response) {
         if (response.ok) {
             return Promise.resolve(response);
         } else {
+            // If the server returns a response other than 'ok', then reject the promise and pass along a new Error with the server response's status text.
             return Promise.reject(new Error(response.statusText));
         }
     }

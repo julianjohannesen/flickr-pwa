@@ -1,43 +1,41 @@
 import React, { Component, Fragment } from 'react';
-//import { useParams } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import Form from '../components/Form';
 import Nav from '../components/Nav';
 import PhotoContainer from '../components/PhotoContainer';
 import { fetchData } from '../js/fetchData.js';
 
-export default class Home extends Component {
+class home extends Component {
+
+    //!NOTE: 3 render cases: '/', '/search/text', '/nav/id' - do i need nav/id? 
+
     // Store the state of the search query and any returned data
-    state = {
-        data: ''
-    };
+    state = {data: ''};
 
-    // The search form component will call submitQuery when a user submits a search term using the search form
-    submitQuery = (e, url) => {
-        console.log("submitQuery just got called. The url argument is: ", url);
-        
-        // Fetch the data using the query parameter
-        fetchData(url, this.process);
-    };
+    // Form will call submitQuery when a user submits a search term using the search form. We're fetching the data here only to make it available to other child components of Home.
+    submitQuery = (e, url) => fetchData(url, this.process);
 
-    process = (data) => this.setState({data: data});
-
-    // componentDidUpdate(){
-    //     let { tag } = useParams();
-    //     if(tag) {
-    //         fetchData(tag);
-    //     } else {
-    //         fetchData(this.state.query);
-    //     }
-    // }
+    // process will take the parsed response and use it to set state. Again, we're doing this here to make the data available to other child components of Home.
+    process = (data) => this.setState({data: data}); 
 
     render() {
-        console.log("The response data after processing and setting state: ", this.state.data)
+        const { match } = this.props;
+        const { params } = match;
+        const { id } = params;
+        console.log(match, params, id);
         return (
             <Fragment>
-                <Form submitQuery={this.submitQuery} apiKey={this.props.apiKey} />
+                <h1>{id || 'Search for Photos'}</h1>
+                <Form 
+                    apiKey={this.props.apiKey}
+                    submitQuery={this.submitQuery} 
+                />
                 <Nav submitQuery={this.submitQuery} />
                 <PhotoContainer data={this.state.data} />
             </Fragment>
         );
     }
 }
+
+const Home = withRouter(home);
+export default Home;

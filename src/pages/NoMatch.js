@@ -5,10 +5,11 @@ export default function NoMatch() {
     let location = useLocation();
     return (
         <div>
+            <h2>Route/Page Not Found</h2>
             <h3>
-                No match for <code>{location.pathname}</code>. 
+                Sorry. There does not appear to be a match for <strong><code>{location.pathname}</code></strong>. 
             </h3>
-            <p>Return <Link to="/">home</Link>.</p>
+            <p>Return <Link to="/">Home</Link>.</p>
         </div>
     );
 }

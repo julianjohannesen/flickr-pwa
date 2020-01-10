@@ -3,10 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './css/styles.css';
 import Home from './pages/Home';
 import About from './pages/About';
-import NotFound from './pages/NotFound';
+import NoMatch from './pages/NoMatch';
 import { apiKey } from './config.js';
-
-//import { forest } from './forest.js';
 
 class App extends Component {
 
@@ -15,6 +13,7 @@ class App extends Component {
 			<div className="App">
 				<Router>
 					<Switch>
+
 						<Route exact path="/">
 							<Home apiKey={apiKey} />
 						</Route>
@@ -22,23 +21,15 @@ class App extends Component {
 						<Route path="/about">
 							<About />
 						</Route>
-						
-						<Route path="/most-faved">
-							<About />
-						</Route>
-						
-						<Route path="/most-viewed">
-							<About />
-						</Route>
-						<Route path="/most-ratioed">
-							<About />
-						</Route>
 
-						<Route path="/search/:tag" children={<Home apiKey={apiKey} />} />
+						<Route path={["/social/:id", "/search/:text"]} >
+							<Home apiKey={apiKey}/>
+						</Route>
 
 						<Route path="*">
-							<NotFound />
+							<NoMatch />
 						</Route>
+
 					</Switch>
 				</Router>
 			</div>
