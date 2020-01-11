@@ -6,13 +6,13 @@ export default function Nav({match}) {
         <nav className="main-nav">
             <ul>
                 <li>
-                    <NavLink to={`/social/most-faved`} activeClassName="active">Most<br/>Faved</NavLink>
+                    <NavLink to={`/nav/hedgehogs`} activeClassName="active">Hedgehogs</NavLink>
                 </li>
                 <li>
-                    <NavLink to={`/social/most-viewed`} >Most<br/>Viewed</NavLink>
+                    <NavLink to={`/nav/sloths`} >Sloths</NavLink>
                 </li>
                 <li>
-                    <NavLink to={`/social/most-ratioed`}>Most<br/>Ratio'ed</NavLink>
+                    <NavLink to={`/nav/wombats`}>Wombats</NavLink>
                 </li>
             </ul>
         </nav>

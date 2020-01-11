@@ -22,7 +22,7 @@ class App extends Component {
 							<About />
 						</Route>
 
-						<Route path={["/social/:id", "/search/:text"]} >
+						<Route path={["/nav/:text", "/search/:text"]} >
 							<Home apiKey={apiKey}/>
 						</Route>
 
