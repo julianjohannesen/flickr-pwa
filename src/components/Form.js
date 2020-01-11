@@ -1,4 +1,5 @@
 import React, { Component, createRef } from 'react';
+import { buildURL } from '../js/helpers';
 
 export default class Form extends Component {
 
@@ -24,35 +25,16 @@ export default class Form extends Component {
     // The localQuery will update with every change to the input, but only a return or click on the submit button will call the updateQuery function and update the query in Home.
     updateLocalQuery = (e) => this.setState({localQuery: e.target.value});
 
-    // Use the endpoint and options to build the API endpoint URL with parameters
-    buildURL = () => {
-        const keys = Object.keys(this.state.options);
-        // Reduce the keys object, adding each 'key=value&' parameter as we go, and returning the complete string
-        const optionsString = keys.reduce( (acc, currentKey) => {
-            return acc += currentKey + "=" + this.state.options[currentKey] + "&";
-        }, '');
-        console.log("At the time I return the url, the text are: ", this.state.options.text, " and the localQuery is: ", this.state.localQuery)
-        // Return the full url string
-        return this.state.endpoint + "?" + optionsString;
-    }
-
     // On form submit, build the url and call submitQuery
     localSubmit = (e) => {
-
         e.preventDefault();
-
         this.setState(
             // Update the options object with the most recent localQuery value
-            { 
-                options: {
-                    ...this.state.options, 
-                    text: this.state.localQuery.trim()
-                } 
-            }, 
+            { options: { ...this.state.options, text: this.state.localQuery.trim() } }, 
             // Then, using the updated options, use the callback to build the url
             ()=>{
                 // Build the url string
-                const url = this.buildURL();
+                const url = buildURL(this.props.endpoint, this.state.options);
                 // Call submit and pass in the event and url string
                 this.props.submitQuery(e, url);
             }

@@ -38,6 +38,16 @@ To start the local server use:
 npm start
 ```
 
+The app will load, however it is not yet able to make calls to the Flickr API. For that, visit Flickr's Developer Pages and register for an API key.
+
+Once you have the key, create a new file called config.js in your src folder. Open the file and add the following, supplying your own API key.
+
+```js
+export const apiKey = 'your-api-key-goes-here';
+```
+
+You should be all set.
+
 ## Development Notes
 
 Flickr PWA was built with Reactjs and was bootstrapped with Create React App. Routing is accomplished with React Router 4. The app uses the native Fetch API. 
