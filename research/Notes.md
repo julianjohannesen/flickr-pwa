@@ -1,3 +1,7 @@
+A note about the response structure:
+
+The object has two properties: photos, and stat. photos has page, pages, perpage, total, and photo properties. photos.photo is an array of photo objects. Each photo has a lot of properties, but the interesting ones to me are: title, description._content, o_width, o_height, datetaken, ownername, tags, and then all of the urls for different versions with height and width for each
+
 1. When i click on search, the URL does not update to reflect my search terms. Instead, it stays on the Most 
    Faved, Most Viewed or whatever page.
 2. When the page loads, it shows no results.
