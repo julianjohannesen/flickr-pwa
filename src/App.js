@@ -19,13 +19,16 @@ class App extends Component {
 							<Home apiKey={apiKey} />
 						</Route>
 						
-						<Route path="/about">
+						<Route exact path="/about">
 							<About />
 						</Route>
 
-						<Route path={["/nav/:text", "/search/:text"]} >
-							<Home apiKey={apiKey}/>
-						</Route>
+						<Route 
+							exact
+							path={["/nav/:text", "/search/:text"]}
+							apiKey={apiKey}
+							render={ props => <Home {...props} /> } 
+						/>
 
 						<Route path="*">
 							<NoMatch />

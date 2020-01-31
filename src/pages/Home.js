@@ -11,35 +11,42 @@ class home extends Component {
 
     // Store the state of the search query and any returned data
     state = {
+        query: '',
         data: ''
     };
     
     // Form will call submitQuery when a user submits a search term using the search form. We're fetching the data here only to make it available to other child components of Home.
-    submitQuery = (e, url) => fetchData(url, this.process);
+    submitQuery = (e, url, query) => fetchData(url, query, this.process);
     
     // process will take the parsed response and use it to set state. Again, we're doing this here to make the data available to other child components of Home.
-    process = (data) => this.setState({data: data}); 
+    process = (query, data) => this.setState({
+        query: query, 
+        data: data
+    });
+
+    // Set the url to match the search query
+    componentDidMount(){
+        this.props.history.push(`/${this.state.query}`);
+    }
 
     render() {
+
+        console.log("The match, history, location stuff: ", this.props.match, this.props.history, this.props.location)
         
-        let query = this.props?.match?.params?.text || '';
-        if(query) {
-            query = query.charAt(0).toUpperCase() + query.slice(1);
-        }
-        console.log(query);
         return (
             <Fragment>
-                <h1>{query || "Search for Photos"}</h1>
+                <h1>Search for Photos</h1>
                 <Form 
                     apiKey={this.props.apiKey}
                     submitQuery={this.submitQuery} 
                 />
                 <Nav submitQuery={this.submitQuery} />
-                <PhotoContainer data={this.state.data} />
+                {this.state.data ? <PhotoContainer data={this.state.data} query={this.state.query} /> : null}
             </Fragment>
         );
     }
 }
 
+// Use withRouter to pass match,location, and history props to home. In a functional component you could just use the hook useParams()
 const Home = withRouter(home);
 export default Home;

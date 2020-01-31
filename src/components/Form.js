@@ -31,7 +31,7 @@ export default class Form extends Component {
         const optionsString = keys.reduce( (acc, currentKey) => {
             return acc += currentKey + "=" + this.state.options[currentKey] + "&";
         }, '');
-        console.log("At the time I return the url, the text are: ", this.state.options.text, " and the localQuery is: ", this.state.localQuery)
+        console.log("At the time I return the url, the text is: ", this.state.options.text, " and the localQuery is: ", this.state.localQuery)
         // Return the full url string
         return this.state.endpoint + "?" + optionsString;
     }
@@ -54,7 +54,7 @@ export default class Form extends Component {
                 // Build the url string
                 const url = this.buildURL();
                 // Call submit and pass in the event and url string
-                this.props.submitQuery(e, url);
+                this.props.submitQuery(e, url, this.state.localQuery);
             }
         );
     }
