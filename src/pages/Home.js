@@ -10,6 +10,7 @@ import { apiKey } from '../config.js';
 class Home extends Component {
     // Store the state of the search query and any returned data
     state = {
+        loading: false,
         data: '',
         url: '',
         endpoint: 'https://www.flickr.com/services/rest/',
@@ -60,13 +61,19 @@ class Home extends Component {
     };
 
     // liftUpData will lift the fetched data from fetchData to Home. We pass it to fetchData when we call fetchData in componentDidUpdate. This additional step is necessary, because fetchData is defined in another file/scope. We need to get the fetched data from there to here.
-    liftUpData = data => this.setState({ data: data });
+    liftUpData = data => this.setState({ 
+        loading: false,
+        data: data 
+    });
 
     // Now that the query text has been lifted up, we can build the url and fetch the data
     submitQuery = () => {
         this.setState(
             // First, build the url
-            { url: buildURL(this.state.endpoint, this.state.options) },
+            {   
+                loading: true,
+                url: buildURL(this.state.endpoint, this.state.options)
+            },
             // Then, in the callback, use the url to fetchData
             () => {
                 if (this.state.url) {
@@ -84,14 +91,6 @@ class Home extends Component {
 
         // Call liftUpQuery after Homes mounts in case the use has entered a search directly into the url field
         this.liftUpQuery('');
-        
-        console.log(
-            "LOCATION: ", this.props.location,
-            "\nHISTORY: ", this.props.history,
-            "\nMATCH: ", this.state.match,
-            '\nWhat is the match object telling us? ',
-            this.props.match.params.text, " and what is the current value of this.state.options.text? ", this.state.options.text
-        );
 
     }
 
@@ -103,6 +102,7 @@ class Home extends Component {
                 <Nav liftUpQuery={this.liftUpQuery} />
                 {this.state.data ? (
                     <PhotoContainer
+                        loading={this.state.loading}
                         data={this.state.data}
                         query={this.state.options.text}
                     />

@@ -1,14 +1,15 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
 import Photo from './Photo';
+import Loading from './Loading';
 
-export default function PhotoContainer(props) {
+export default function PhotoContainer({loading, data, query}) {
     // Map over the photos array and call Photo for each photo
-    const generatePhotos = props => {
+    const generatePhotos = (data) => {
         // Check for errors
-        if (props.data?.stat === 'ok') {
+        if (data?.stat === 'ok') {
             // Store the photos array or else store an array
-            const photos = props.data?.photos?.photo || [];
+            const photos = data?.photos?.photo || [];
             // If there are photos, display them
             if (photos.length > 0) {
                 return photos.map(photo => (
@@ -33,21 +34,23 @@ export default function PhotoContainer(props) {
                 <li className="not-found">
                 <h3>There was an error fetching your request.</h3>
                 <p>
-                    {props.data.message}
+                    {data.message}
                 </p>
             </li>
             )
         }
     };
 
-    let {query} = props
+    //let {query} = props
     query = query ? query.split(' ').map(word=>word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : '';
 
     return (
         <div className="photo-container">
             <h2>Results for {query}</h2>
             
-            <ul>{generatePhotos(props)}</ul>
+            <ul>
+                { loading ? <Loading /> : generatePhotos(data) }
+            </ul>
         </div>
     );
 }

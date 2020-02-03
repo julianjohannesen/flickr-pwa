@@ -50,31 +50,7 @@ export default function about() {
                 </ul>
             </section>
 
-            <section>
-                <h2>Local Use</h2>
-
-                <p>
-                    To install the app locally, fork or clone it, and then
-                    download it to your local development environment. Be sure
-                    to run:
-                </p>
-
-                <code>
-                    npm install
-                </code>
-
-                <p>
-                    to install all dependencies.
-                </p>
-
-                <p>
-                    To start the local server use:
-                </p>
-
-                <code>
-                    npm start
-                </code>
-            </section>
+            
             <section>
                 <h2>Development Notes</h2>
 
