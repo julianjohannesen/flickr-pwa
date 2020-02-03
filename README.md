@@ -6,7 +6,7 @@ Flickr PWA is a demonstration application built using React and accessing Flickr
 
 The application performs a text search for images and returns matching images along with details about each image. Search results display below the search box.
 
-The app is deployed on Heroku here: https://flickr-pwa.herokuapp.com/
+The app is deployed on Netlify here: https://jj-flickr-pwa.netlify.com/
 
 ## Features:
 
