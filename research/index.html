@@ -1,55 +1,95 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>React Gallery App</title>
-    <link href="css/index.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="container">
-      
-      <form class="search-form">
-        <input type="search" name="search" placeholder="Search" required/>
-        <button type="submit" class="search-button">
-          <svg fill="#fff" height="24" viewBox="0 0 23 23" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-            <path d="M0 0h24v24H0z" fill="none"/>
-          </svg>
-        </button>
-      </form>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
 
-      <nav class="main-nav">
-        <ul>
-          <li><a href='#'>Cats</a></li>
-          <li><a href='#'>Dogs</a></li>
-          <li><a href='#'>Computers</a></li>
-        </ul>
-      </nav>
+    <body>
+        <div>
+            <h1>Flickr Progressive Web Application</h1>
 
-      <div class="photo-container">
-        <h2>Results</h2>
-        <ul>
-          <li>
-            <img src="https://farm5.staticflickr.com/4334/37032996241_4c16a9b530.jpg" alt="" />
-          </li>
-          <li>
-            <img src="https://farm5.staticflickr.com/4342/36338751244_316b6ee54b.jpg" alt="" />
-          </li>
-          <li>
-            <img src="https://farm5.staticflickr.com/4343/37175099045_0d3a249629.jpg" alt="" />
-          </li>
-          <li>
-            <img src="https://farm5.staticflickr.com/4425/36337012384_ba3365621e.jpg" alt="" />
-          </li>
-          <!-- Not Found -->
-          <li class="not-found">
-            <h3>No Results Found</h3>
-            <p>You search did not return any results. Please try again.</p>
-          </li>
-        </ul>
-      </div>
+            <section>
+                <h2>What is this?</h2>
 
-    </div>
-  </body>
+                <p>
+                    Flickr PWA is a demonstration application built using React
+                    and accessing Flickr's public REST API.
+                </p>
+                <p>
+                    The application performs a text search for images and
+                    returns matching images along with details about each image.
+                    Search results display below the search box.
+                </p>
+            </section>
+
+            <section>
+                <h2>Features</h2>
+                <ul>
+                    <li>
+                        Search Flickr for images
+                    </li>
+                    <li>
+                        View search results below the search area
+                    </li>
+                    <li>
+                        Routes reflect search terms (or nav link)
+                    </li>
+                    <li>
+                        Error handling when a search term returns no results
+                        (try '@@@')
+                    </li>
+                    <li>
+                        A faux 404 page for invalid routes
+                    </li>
+                    <li>
+                        An About page for information about the project
+                    </li>
+                    <li>
+                        Users can enter a search directly in the URL by
+                        appending '?query=whatever'. Use '%20' to separate
+                        multiple search terms, e.g.
+                        '?query=cute%20animals%20in%20sombreros'.
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Local Use</h2>
+
+                <p>
+                    To install the app locally, fork or clone it, and then
+                    download it to your local development environment. Be sure
+                    to run:
+                </p>
+
+                <code>
+                    npm install
+                </code>
+
+                <p>
+                    to install all dependencies.
+                </p>
+
+                <p>
+                    To start the local server use:
+                </p>
+
+                <code>
+                    npm start
+                </code>
+            </section>
+            <section>
+                <h2>Development Notes</h2>
+
+                <p>
+                    Flickr PWA was built with Reactjs and was bootstrapped with
+                    Create React App. Routing is accomplished with React Router
+                    4. The app uses the native Fetch API.
+                </p>
+            </section>
+        </div>
+    </body>
 </html>
