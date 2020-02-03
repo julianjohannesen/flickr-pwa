@@ -3,20 +3,7 @@ import React, { Component, createRef } from 'react';
 export default class Form extends Component {
 
     // Hold the local query in state and update it on change to the input
-    state = {
-        localQuery: '',
-        endpoint: 'https://www.flickr.com/services/rest/',
-        options: {
-            method: 'flickr.photos.search',
-            api_key: this.props.apiKey,
-            text:  '',
-            extras:
-                'description%2C+license%2C+date_upload%2C+date_taken%2C+owner_name%2C+icon_server%2C+original_format%2C+last_update%2C+geo%2C+tags%2C+machine_tags%2C+o_dims%2C+views%2C+media%2C+path_alias%2C+url_sq%2C+url_t%2C+url_s%2C+url_q%2C+url_m%2C+url_n%2C+url_z%2C+url_c%2C+url_l%2C+url_o',
-            per_page: '24',
-            format: 'json',
-            nojsoncallback: '1'
-        }
-    }
+    state = { localQuery: '' }
 
     // Create a reference to the search input element in the DOM. We'll use this to set focus.
     searchRef = createRef();
@@ -24,39 +11,10 @@ export default class Form extends Component {
     // The localQuery will update with every change to the input, but only a return or click on the submit button will call the updateQuery function and update the query in Home.
     updateLocalQuery = (e) => this.setState({localQuery: e.target.value});
 
-    // Use the endpoint and options to build the API endpoint URL with parameters
-    buildURL = () => {
-        const keys = Object.keys(this.state.options);
-        // Reduce the keys object, adding each 'key=value&' parameter as we go, and returning the complete string
-        const optionsString = keys.reduce( (acc, currentKey) => {
-            return acc += currentKey + "=" + this.state.options[currentKey] + "&";
-        }, '');
-        console.log("At the time I return the url, the text is: ", this.state.options.text, " and the localQuery is: ", this.state.localQuery)
-        // Return the full url string
-        return this.state.endpoint + "?" + optionsString;
-    }
-
     // On form submit, build the url and call submitQuery
     localSubmit = (e) => {
-
-        e.preventDefault();
-
-        this.setState(
-            // Update the options object with the most recent localQuery value
-            { 
-                options: {
-                    ...this.state.options, 
-                    text: this.state.localQuery.trim()
-                } 
-            }, 
-            // Then, using the updated options, use the callback to build the url
-            ()=>{
-                // Build the url string
-                const url = this.buildURL();
-                // Call submit and pass in the event and url string
-                this.props.submitQuery(e, url, this.state.localQuery);
-            }
-        );
+        e.preventDefault(); 
+        this.props.liftUpQuery(this.state.localQuery);
     }
 
     componentDidMount(){
