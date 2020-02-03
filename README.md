@@ -6,6 +6,8 @@ Flickr PWA is a demonstration application built using React and accessing Flickr
 
 The application performs a text search for images and returns matching images along with details about each image. Search results display below the search box.
 
+The app is deployed on Heroku here: https://flickr-pwa.herokuapp.com/
+
 ## Features:
 
 - Search Flickr for images
@@ -45,3 +47,7 @@ export const apiKey = 'YOUR API KEY GOES HERE';
 ## Development Notes
 
 Flickr PWA was built with Reactjs and was bootstrapped with Create React App. Routing is accomplished with React Router 4. The app uses the native Fetch API. 
+
+## Issues
+
+Please report any issues here: https://github.com/TAP-Projects/flickr-pwa/issues
