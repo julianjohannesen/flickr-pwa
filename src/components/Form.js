@@ -1,25 +1,11 @@
 import React, { Component, createRef } from 'react';
-import { buildURL } from '../js/helpers';
 
 export default class Form extends Component {
 
     // Hold the local query in state and update it on change to the input
-    state = {
-        localQuery: '',
-        endpoint: 'https://www.flickr.com/services/rest/',
-        options: {
-            method: 'flickr.photos.search',
-            api_key: this.props.apiKey,
-            text:  '',
-            extras:
-                'description%2C+license%2C+date_upload%2C+date_taken%2C+owner_name%2C+icon_server%2C+original_format%2C+last_update%2C+geo%2C+tags%2C+machine_tags%2C+o_dims%2C+views%2C+media%2C+path_alias%2C+url_sq%2C+url_t%2C+url_s%2C+url_q%2C+url_m%2C+url_n%2C+url_z%2C+url_c%2C+url_l%2C+url_o',
-            per_page: '24',
-            format: 'json',
-            nojsoncallback: '1'
-        }
-    }
+    state = { localQuery: '' }
 
-    // Create a reference to the search input element in the DOM. We'll use this to set focus.
+    // Create a reference to the search input element in the DOM. We'll use this to set focus. NOTE: Because I need to create the ref anyway, I could go ahead and use it to update the input's state.
     searchRef = createRef();
 
     // The localQuery will update with every change to the input, but only a return or click on the submit button will call the updateQuery function and update the query in Home.
@@ -27,18 +13,8 @@ export default class Form extends Component {
 
     // On form submit, build the url and call submitQuery
     localSubmit = (e) => {
-        e.preventDefault();
-        this.setState(
-            // Update the options object with the most recent localQuery value
-            { options: { ...this.state.options, text: this.state.localQuery.trim() } }, 
-            // Then, using the updated options, use the callback to build the url
-            ()=>{
-                // Build the url string
-                const url = buildURL(this.props.endpoint, this.state.options);
-                // Call submit and pass in the event and url string
-                this.props.submitQuery(e, url);
-            }
-        );
+        e.preventDefault(); 
+        this.props.liftUpQuery(this.state.localQuery);
     }
 
     componentDidMount(){
