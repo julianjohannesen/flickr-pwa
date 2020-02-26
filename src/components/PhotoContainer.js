@@ -41,13 +41,11 @@ export default function PhotoContainer({loading, data, query}) {
         }
     };
 
-    //let {query} = props
     query = query ? query.split(' ').map(word=>word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : '';
 
     return (
         <div className="photo-container">
             <h2>Results for {query}</h2>
-            
             <ul>
                 { loading ? <Loading /> : generatePhotos(data) }
             </ul>

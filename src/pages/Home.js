@@ -34,7 +34,7 @@ class Home extends Component {
         // If the query came from a search, it's ready to be used
         if (query) {
             theQuery = query;
-        // If it came from a route with url parameters, we get it from match
+        // If the query came from a route with url parameters, we get it from match
         } else if (this.props.match.params.text) {
             theQuery = this.props.match.params.text;
             console.log("The query from match.params.text: ", theQuery)
