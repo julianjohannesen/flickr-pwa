@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function about() {
     return (
-        <div>
+        <div style={{textAlign:"left", paddingLeft: "2em"}}>
             <h1>Flickr Progressive Web Application</h1>
 
             <section>
@@ -21,7 +21,7 @@ export default function about() {
 
             <section>
                 <h2>Features</h2>
-                <ul>
+                <ul style={{listStyle:"disc inside"}}>
                     <li>
                         Search Flickr for images
                     </li>
