@@ -23,13 +23,16 @@ class Home extends Component {
             per_page: '24',
             format: 'json',
             nojsoncallback: '1'
-        }
+        },
+        hedgehogs: [],
+        sloths: [],
+        wombats: []
     };
 
     // liftUpQuery will handle the form submission, lifting Form's localQuery to Home's this.state.options.text, and then in the callback, calling buildURL to build the url
     liftUpQuery = query => {
 
-        // There are three ways that the search terms can be altered: a search box submission, a route, or typing in a url
+        // There are three ways that the search terms can be altered: a search, a route, or typing in a url
         let theQuery;
         // If the query came from a search, it's ready to be used
         if (query) {
@@ -45,7 +48,7 @@ class Home extends Component {
         }
 
         this.setState(
-            // Update this.state.options.text
+            // After loading the page, update this.state.options.text with the default query
             (state, props) => {
                 return {
                     options: {
@@ -83,13 +86,13 @@ class Home extends Component {
         );
 
         // Rewrite the current url to append the search terms
-        this.props.history.push(`?query=${this.state.options.text}`)
+        this.props.history.push(`${this.state.options.text}`)
     };
 
     // When the component updates with a new url state, then fetchData
     componentDidMount() {
 
-        // Call liftUpQuery after Homes mounts in case the use has entered a search directly into the url field
+        // Call liftUpQuery after Home mounts in case the user has entered a search directly into the url field
         this.liftUpQuery('');
 
     }
@@ -99,7 +102,7 @@ class Home extends Component {
             <Fragment>
                 <h1>Search for Photos</h1>
                 <Form liftUpQuery={this.liftUpQuery} />
-                <Nav liftUpQuery={this.liftUpQuery} />
+                <Nav />
                 {this.state.data ? (
                     <PhotoContainer
                         loading={this.state.loading}
@@ -112,6 +115,6 @@ class Home extends Component {
     }
 }
 
-// Use withRouter to pass match,location, and history props to home. In a functional component you could just use the hook useParams()
+// Use withRouter to pass match,location, and history props to home. In a functional component you could just use the hook useParams(). Or you could just use component() or render() in the Route
 //const Home = withRouter(home);
 export default Home;

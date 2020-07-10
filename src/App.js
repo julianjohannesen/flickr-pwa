@@ -11,11 +11,10 @@ class App extends Component {
             <div className="App">
                 <Router>
                     <Switch>
-                        {/*<Route exact path="/" component={Home} /> */}
 
                         <Route
                             exact
-                            path={['/', '/?query=:text']}
+                            path={['/', '/hedgehogs', '/sloths', '/wombats', '/:text']}
                             component={Home}
                         />
 
