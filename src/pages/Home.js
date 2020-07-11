@@ -32,21 +32,28 @@ class Home extends Component {
     // liftUpQuery will handle the form submission, lifting Form's localQuery to Home's this.state.options.text, and then in the callback, calling buildURL to build the url
     liftUpQuery = query => {
 
-        // There are three ways that the search terms can be altered: a search, a route, or typing in a url
+        // Getting the query
+        //#region
+        // There are three ways that the search terms can be altered: a search, a link to a route, or typing in a url
         let theQuery;
         // If the query came from a search, it's ready to be used
         if (query) {
             theQuery = query;
         // If the query came from a route with url parameters, we get it from match
-        } else if (this.props.match.params.text) {
-            theQuery = this.props.match.params.text;
-            console.log("The query from match.params.text: ", theQuery)
+        // } else if (this.props.match.params.text) {
+        //     theQuery = this.props.match.params.text;
+        //     console.log("The query from match.params.text: ", theQuery)
+        } else if (this.props.thePath) {
+            theQuery = this.props.thePath;
+            console.log("The query from this.props.thePath: ", theQuery)
         // If the query came from the url, we need to get it from location. 
         } else if (this.props.location.search) { 
             theQuery = this.props.location.search.slice(7);
             console.log("The query from location.search: ", theQuery)
         }
+        //#endregion
 
+        // Setting the query state and then calling submitQuery()
         this.setState(
             // After loading the page, update this.state.options.text with the default query
             (state, props) => {
@@ -86,7 +93,7 @@ class Home extends Component {
         );
 
         // Rewrite the current url to append the search terms
-        this.props.history.push(`${this.state.options.text}`)
+        // this.props.history.push(`${this.state.options.text}`)
     };
 
     // When the component updates with a new url state, then fetchData

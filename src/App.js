@@ -4,28 +4,46 @@ import './css/styles.css';
 import Home from './pages/Home';
 import About from './pages/About';
 import NoMatch from './pages/NoMatch';
+import Wombats from './pages/Wombats.js';
 
 class App extends Component {
     render() {
         return (
             <div className="App">
+
                 <Router>
+
                     <Switch>
 
-                        <Route
-                            exact
-                            path={['/', '/hedgehogs', '/sloths', '/wombats', '/:text']}
-                            component={Home}
-                        />
+                        <Route exact path="/">
+                            <Home thePath="home" />
+                        </Route>
+
+                        <Route exact path="/hedgehogs">
+                            <Home thePath="hedgehogs" />
+                        </Route>
+
+                        <Route exact path="/sloths">
+                            <Home thePath="sloths" />
+                        </Route>
+
+                        <Route exact path="/wombats">
+                            <Wombats />
+                        </Route>
+
 
                         <Route exact path="/about">
                             <About />
                         </Route>
 
+                        <Route exact path="/:text" component={Home} />
+
                         <Route path="*">
                             <NoMatch />
                         </Route>
+
                     </Switch>
+
                 </Router>
             </div>
         );

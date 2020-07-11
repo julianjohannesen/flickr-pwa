@@ -1,10 +1,11 @@
-export function fetchData(url, liftUpState) {
+export async function fetchData(url, setTheState) {
 
     // fetchData takes a url string and returns a promise containing the parsed data fetched from the given URL. It also sets the state of data.
     return fetch(url)
         .then(checkStatus)
         .then(res => res.json())
-        .then(data => liftUpState(data))
+        .then(data => setTheState(data))
+        // If checkStatus finds an error it passes it along to catch
         .catch(error => console.log("Looks like there was a problem!", error));
 
     // If the server responds with 'ok,' then checkStatus resolves the response, passing it along to whatever comes next. Otherwise it reject's the promise, passing along a new error with the response status text included.
