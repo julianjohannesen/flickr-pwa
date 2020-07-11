@@ -28,7 +28,7 @@ class App extends Component {
                         </Route>
 
                         <Route exact path="/wombats">
-                            <Wombats />
+                            <Wombats text="wombats" />
                         </Route>
 
 
