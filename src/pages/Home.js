@@ -107,9 +107,9 @@ class Home extends Component {
     render() {
         return (
             <Fragment>
-                <h1>Search for Photos</h1>
+                {/* <h1>Search for Photos</h1>
                 <Form liftUpQuery={this.liftUpQuery} />
-                <Nav />
+                <Nav /> */}
                 {this.state.data ? (
                     <PhotoContainer
                         loading={this.state.loading}
