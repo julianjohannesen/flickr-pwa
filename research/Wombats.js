@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import PhotoContainer from "../components/PhotoContainer";
-import { buildURL } from "../js/buildURL";
+import PhotoContainer from "../src/components/PhotoContainer";
+import { buildURL } from "../src/js/buildURL";
 
 export default function Wombats( { text } ){
 

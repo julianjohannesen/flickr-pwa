@@ -7,7 +7,7 @@ export default function Cuties () {
 
     //const { cuteAnimal } = useParams();
     const path = useLocation().pathname;
-    const cuteAnimal = path.substr(1);
+    const cuteAnimal = "cute animals " + path.substr(1);
 
     // The Flickr URL with the query parameters plugged in
     const url = buildURL(cuteAnimal);
@@ -51,8 +51,9 @@ export default function Cuties () {
                 setLoading(false);
             }
         }
+        const animalData = Object.keys(Data[cuteAnimal]) || []
         // Only call the effect if the data isn't already present
-        if (Object.keys(Data[cuteAnimal]).length === 0) {
+        if (animalData.length === 0) {
             wrapperFunction(url);
         }
     }, [url] );
