@@ -34,34 +34,21 @@ export default function App () {
                 <Nav />
                 <Switch>
 
-                    { // If the redirect flag is set, then redirect to "/search," passing along any query params. 
-                    // NOTE if the query parameter is already set, then why would we need to pass it along? It's set here in App
-                    redirect 
-                    ? 
-                    <Redirect to="/search"
-                        // { 
-                        //     pathname: '/search', 
-                        //     state: { query: query } 
-                        // }
-                    />
-                    : null // All of the routes below are the "else"
-                    }
-
-                    {/* Note: this is 4 routes. Paths are passed as an array. Each route renders the same component. This is equivalent to writing 4 separate Routes that render the same component.*/}
+                    {/* Note: this is 3 routes. Paths are passed as an array. Each route renders the same component. This is equivalent to writing 4 separate Routes that render the same component.*/}
                     <Route exact path={["/hedgehogs", "/sloths", "/wombats"]}>
-                        <Cuties />
+                        { redirect ? <Redirect to="/search" /> : <Cuties /> }
                     </Route>
 
+                    {/* Note: this is 2 routes. Paths are passed as an array. Each route renders the same component. This is equivalent to writing 2 separate Routes that render the same component.*/}
                     <Route exact path={["/", "/about"]}>
-                        <About />
+                        { redirect ? <Redirect to="/search" /> : <About /> }
                     </Route>
 
-                    {/* Note: this is 2 routes. Paths are passed as an array. Each route renders the same component. */}
                     {/* Note: We have to use render for this one, because we're passing a custom prop. */}
                     <Route exact path={["/search"]} render={ ()=><Search query={query} resetRedirectFlag={resetRedirectFlag} /> } />
 
                     <Route path="*">
-                        <NoMatch />
+                        { redirect ? <Redirect to="/search" /> : <NoMatch /> }
                     </Route>
 
                 </Switch>

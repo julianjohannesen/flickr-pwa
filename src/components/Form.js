@@ -16,6 +16,7 @@ export default function Form ( { liftUpQuery } ) {
     function localSubmit (e) {
         e.preventDefault(); 
         liftUpQuery(localQuery);
+        setLocalQuery('');
     }
 
     useEffect(
