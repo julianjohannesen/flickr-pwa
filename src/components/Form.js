@@ -2,11 +2,15 @@ import React, { useRef, useState, useEffect } from 'react';
 
 export default function Form ( { liftUpQuery } ) {
 
-    // Store the local query in state and update it on change to the input
-    const [ localQuery, setLocalQuery ] = useState();
+    // Store the local query in state and update it on change to the input. We have to set an initial value of an empty string.
+    const [ localQuery, setLocalQuery ] = useState('cute animals in sombreros');
 
     // Create a reference to the search input element in the DOM. We'll use this to set focus.
-    const searchRef = useRef();    
+    const searchRef = useRef(); 
+    
+    function localChange (e) {
+        setLocalQuery(e.target.value);
+    }
 
     // On form submit, lift localQuery to App component. At that point, it's passed down to Search, which will render the results
     function localSubmit (e) {
@@ -26,7 +30,7 @@ export default function Form ( { liftUpQuery } ) {
         >
             <input 
                 name="search"
-                onChange={(e) => setLocalQuery(e.target.value)}
+                onChange={localChange}
                 placeholder="Search" 
                 ref={searchRef}
                 required

@@ -33,7 +33,7 @@ export default function about() {
                         (try '@@@')
                     </li>
                     <li>
-                        A faux 404 page for invalid routes
+                        Error handling for invalid routes
                     </li>
                     <li>
                         Users can enter a search directly in the URL by appending '?query=whatever'. Use '%20' to separate multiple search terms, e.g.
@@ -47,8 +47,7 @@ export default function about() {
                 <h2>Development Notes</h2>
 
                 <p>
-                    Flickr PWA was built with React.js using hooks and was bootstrapped with Create React App. Routing is accomplished with React Router
-                    5, also using hooks. The app uses the native Fetch API.
+                    Flickr PWA was built with React.js using hooks and was bootstrapped with Create React App. Routing is accomplished with React Router 5, also using hooks. The app uses the native Fetch API.
                 </p>
             </section>
         </div>
