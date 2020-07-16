@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PhotoContainer from '../components/PhotoContainer';
 import { buildURL } from '../js/buildURL.js';
 
-export default function Search({ query, resetRedirectFlag, location }) {
-
-    //console.log("The location: ", location ? location.state : "No location prop was passed.");
+export default function Search({ query, resetRedirectFlag }) {
 
     // In case this was a redirect from the cute animals pages, reset the redirect flag
     resetRedirectFlag(false);
@@ -12,14 +10,8 @@ export default function Search({ query, resetRedirectFlag, location }) {
     // Store the state of the search query and any returned data
     const [ loading, setLoading ] = useState(true);
     const [ Data, setData ] = useState({});
-    const [ errorState, setErrorState ] = useState()
 
-    // The Flickr URL with the query parameters plugged in. The location prop is passed to Search when there's a redirect from "/sloths", etc.  If there wasn't a redirect, then the location prop is undefined or null, and we'll use query.
-    // If you haven't seen it before, the ?? is the new es2020 nullish coalescing operator. The left side is always chosen, unless it's undefined or null.
-    // let querySource = location?.state?.query || query;
-    console.log("The location.state.query and the plain old query: ", location?.state?.query, query)
-    let querySource = query;
-    const url = buildURL(querySource);
+    const url = buildURL(query);
 
     useEffect(
         () => {
@@ -36,7 +28,6 @@ export default function Search({ query, resetRedirectFlag, location }) {
                 }
                 catch (error) {
                     console.error(error);
-                    setErrorState(error);
                 }
                 finally {
                     console.log(Data);
@@ -49,14 +40,11 @@ export default function Search({ query, resetRedirectFlag, location }) {
     );
 
     return (
-        <div>
-            <h1>Is this working?</h1>
-            <PhotoContainer
-                loading={loading}
-                data={Data}
-                query={query}
-            />
-        </div>
+        <PhotoContainer
+            loading={loading}
+            data={Data}
+            query={query}
+        />
     );
 
 }

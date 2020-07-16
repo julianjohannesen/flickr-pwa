@@ -12,11 +12,10 @@ The app is deployed on Netlify here: https://jj-flickr-pwa.netlify.com/
 
 - Search Flickr for images
 - View search results below the search area
-- Routes reflect search terms (or nav link)
+- Routes reflected in address bar (but not query parameters)
 - Error handling when a search term returns no results (try '@@@')
 - A faux 404 page for invalid routes (Please note that this will not work on Netlify. Instead, users will be redirected to the homepage.)
 - An About page for information about the project
-- Users can enter a search directly in the URL by appending '?query=whatever'. Use '%20' to separate multiple search terms, e.g. '?query=cute%20animals%20in%20sombreros'.
 
 ## Local Use
 
@@ -46,7 +45,7 @@ export const apiKey = 'YOUR API KEY GOES HERE';
 
 ## Development Notes
 
-Flickr PWA was built with Reactjs and was bootstrapped with Create React App. Routing is accomplished with React Router 4. The app uses the native Fetch API. 
+Flickr PWA was built with Reactjs and was bootstrapped with Create React App. Routing is accomplished with React Router 5. The app uses the native Fetch API. 
 
 ## Issues
 
