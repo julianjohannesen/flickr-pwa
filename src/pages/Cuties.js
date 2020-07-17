@@ -19,7 +19,6 @@ export default function Cuties () {
         sloths: {},
         wombats: {}
     });
-    let [ errorState, setErrorState ] = useState({})
 
     // Fetch data
     // Including the empty array as the 2nd argument to useEffect calls useEffect only on mount and not on update. This prevents an infinite fetch loop.
@@ -44,7 +43,6 @@ export default function Cuties () {
             }
             catch (error) {
                 console.error(error);
-                setErrorState(error);
             }
             finally {
                 console.log(Data);

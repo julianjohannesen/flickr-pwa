@@ -9,10 +9,10 @@ export default function about() {
                 <h2>What is this?</h2>
 
                 <p>
-                    Flickr PWA is a demonstration application built with React.
+                    Flickr Progressive Web Application is a demonstration application that uses Flickr's REST API to search for and display photos. 
                 </p>
                 <p>
-                    The application performs a text search for images using Flickr's REST API and returns matching images along with details about each image. Search results display below the search box.
+                    The application is
                 </p>
             </section>
 
@@ -26,7 +26,7 @@ export default function about() {
                         View a gallery of search results below the search area
                     </li>
                     <li>
-                        When results are shown, routes reflect the search terms used
+                        Routes are reflected in address bar
                     </li>
                     <li>
                         Error handling when a search term returns no results
@@ -34,10 +34,6 @@ export default function about() {
                     </li>
                     <li>
                         Error handling for invalid routes
-                    </li>
-                    <li>
-                        Users can enter a search directly in the URL by appending '?query=whatever'. Use '%20' to separate multiple search terms, e.g.
-                        '?query=cute%20animals%20in%20sombreros'.
                     </li>
                 </ul>
             </section>
