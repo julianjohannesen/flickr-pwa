@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import PhotoContainer from '../components/PhotoContainer';
+import { useParams, useHistory, useLocation } from "react-router-dom";
+import PhotoContainer from './PhotoContainer';
 import { buildURL } from '../js/buildURL.js';
 
-export default function Search({ query, resetRedirectFlag }) {
+export default function Search({ query, setUpdateFlag }) {
 
-    // In case this was a redirect from the cute animals pages, reset the redirect flag
-    resetRedirectFlag(false);
-
-    // Store the state of the search query and any returned data
+    // Store the loading state and any returned data
     const [ loading, setLoading ] = useState(true);
     const [ Data, setData ] = useState({});
 
+    const params = useParams();
+    const location = useLocation();
+    const history = useHistory();
+    // Build the Flickr API URL endpoint with the query plugged in
     const url = buildURL(query);
 
     useEffect(
         () => {
+            // This function is documented in the Cuties component
             async function wrapperFunction(){  
                 try {
                     setLoading(true);
                     const resp = await fetch(url);
                     if (!resp.ok) {
+                        console.error(`HTTP error! status: ${resp.status}`)
                         throw new Error(`HTTP error! status: ${resp.status}`);
                     } else {
                         const parsedResp = await resp.json();
@@ -27,31 +31,31 @@ export default function Search({ query, resetRedirectFlag }) {
                     }
                 }
                 catch (error) {
-                    console.error(error);
+                    console.error("Caught in wrapperFunction: ", error);
+                    throw new Error("Caught in wrapperFunction: " + error)
                 }
                 finally {
-                    console.log(Data);
+                    console.log("The data: \n", Data);
                     setLoading(false);
                 }
             }
             wrapperFunction(url);
+
+            // Reset the update flag
+            setUpdateFlag(false);
+            console.log("Search rendered or updated.\n", "The url: \n", url,"\nThe query: \n", query, "\nHow about Params? \n", params, location, history);
         }
         , [query]
     );
 
     return (
+
         <PhotoContainer
             loading={loading}
             data={Data}
             query={query}
         />
+
     );
 
 }
-
-// how do you get the query terms from the form component?
-    // If Search doesn't render the Form, how can it pass down the function needed to set the query in state?
-// how do you use those terms to build the flickr api url?
-// how do you fetch the data and do it only when the query state changes?
-// how do you store the data in state?
-// how do you display the photos?

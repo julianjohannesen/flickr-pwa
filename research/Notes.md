@@ -45,4 +45,10 @@ Should I pass any query parameters as URL params rather than passing as props? T
 
 If I did the above, what effect would that have on forward and back buttons after performing a search?
 
+## Thoughts
+
+I can test for my location and conditionally render something in a component that appears on every page, depending on the location.pathname. So, if I have a header on every page, I can test for which page I'm on in my header component and conditionally render something, e.g. if I wanted an active class on my nav link, I could test to see if the Link's to property is the same as location.pathname, and if so, I can add an active class.
+
+
+
 

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import PhotoContainer from "../components/PhotoContainer";
 import { buildURL } from "../js/buildURL";
+import SearchContainer from "../components/SearchContainer";
 
 export default function Cuties () {
 
-    //const { cuteAnimal } = useParams();
     const path = useLocation().pathname;
     const cuteAnimal = path.substr(1);
 
@@ -33,6 +33,7 @@ export default function Cuties () {
                 const resp = await fetch(url);
                 // Throw an error if there was a problem with the request
                 if (!resp.ok) {
+                    console.error(`HTTP error! status: ${resp.status}`);
                     throw new Error(`HTTP error! status: ${resp.status}`);
                 } else {
                     // Parse the resp stream promise as JSON
@@ -42,7 +43,8 @@ export default function Cuties () {
                 }
             }
             catch (error) {
-                console.error(error);
+                console.error("Caught in wrapperFunction: ", error);
+                throw new Error("Caught in wrapperFunction: " + error)
             }
             finally {
                 console.log(Data);
@@ -56,12 +58,14 @@ export default function Cuties () {
         }
     }, [url] );
     
-
     return(
+        <>
+            <SearchContainer />
             <PhotoContainer 
                 loading = {loading}
                 data = {Data[cuteAnimal]}
                 query = {cuteAnimal}
             />
+        </>
         );
 }

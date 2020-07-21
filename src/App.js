@@ -1,54 +1,44 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './css/styles.css';
-import Form from './components/Form.js';
 import Nav from './components/Nav.js';
-import Search  from './pages/Search';
 import Cuties from './pages/Cuties.js';
 import About from './pages/About';
 import NoMatch from './pages/NoMatch';
 
 export default function App () {
 
-    // query holds query terms from Form
-    const [ query, setQuery ] = useState('cute animals in sombreros');
-    // a redirect flag to handle searches
-    const [ redirect, setRedirect ] = useState(false);
-
-    // liftUpQuery lifts the query state from the form to Search
-    function liftUpQuery (query) {
-        setQuery(query); 
-        setRedirect(true); 
-    };
-
-    function resetRedirectFlag (boolVal) {
-        setRedirect(boolVal);
-    }
-
     return (
+        // Please note that in two cases I pass an array to the Route's "to" property. This is the equivalent of writing a separate route for each member of the array.
+        // Please note that in the search Route I use the Route's render method in order to pass custom props.
         <div className="App">
             <h1>Search for Photos</h1>
 
             <Router>
-                <Form liftUpQuery={liftUpQuery} />
                 <Nav />
                 <Switch>
+                    
+                    {/* <Route 
+                        path="/search" 
+                        render={ ()=><Search query={query} setUpdateFlag={setUpdateFlag} /> } 
+                    /> */}
 
-                    {/* Note: this is 3 routes. Paths are passed as an array. Each route renders the same component. This is equivalent to writing 4 separate Routes that render the same component.*/}
-                    <Route exact path={["/hedgehogs", "/sloths", "/wombats"]}>
-                        { redirect ? <Redirect to="/search" /> : <Cuties /> }
+                    <Route 
+                        exact 
+                        path={["/hedgehogs", "/sloths", "/wombats"]}
+                    >
+                        <Cuties />
                     </Route>
 
-                    {/* Note: this is 2 routes. Paths are passed as an array. Each route renders the same component. This is equivalent to writing 2 separate Routes that render the same component.*/}
-                    <Route exact path={["/", "/about"]}>
-                        { redirect ? <Redirect to="/search" /> : <About /> }
+                    <Route 
+                        exact 
+                        path="/"
+                    >
+                        <About />
                     </Route>
-
-                    {/* Note: We have to use render for this one, because we're passing a custom prop. */}
-                    <Route exact path={["/search"]} render={ ()=><Search query={query} resetRedirectFlag={resetRedirectFlag} /> } />
 
                     <Route path="*">
-                        { redirect ? <Redirect to="/search" /> : <NoMatch /> }
+                        <NoMatch />
                     </Route>
 
                 </Switch>
@@ -57,3 +47,22 @@ export default function App () {
         </div>
     );
 }
+
+// {/* If query has updated, then redirect from the path where the update initiated to the search path */}
+// {
+//     updateFlag 
+//     ?  
+//     <Redirect 
+//         push 
+//         to={{ 
+//             pathname:"/search", 
+//             search: "?text=" + query,
+//             state: {query} 
+//             }} 
+//         render={ ()=><Search setUpdateFlag={setUpdateFlag} /> }
+//     />
+//     : 
+//     null
+//     }
+
+                    

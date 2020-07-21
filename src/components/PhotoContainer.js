@@ -34,7 +34,7 @@ export default function PhotoContainer({loading, data, query}) {
                 <li className="not-found">
                 <h3>There was an error fetching your request.</h3>
                 <p>
-                    {/* {data.message} */}
+                    {data?.message}
                 </p>
             </li>
             )

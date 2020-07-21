@@ -3,11 +3,12 @@ import React, { useRef, useState, useEffect } from 'react';
 export default function Form ( { liftUpQuery } ) {
 
     // Store the local query in state and update it on change to the input. We have to set an initial value of an empty string.
-    const [ localQuery, setLocalQuery ] = useState('cute animals in sombreros');
+    const [ localQuery, setLocalQuery ] = useState('');
 
     // Create a reference to the search input element in the DOM. We'll use this to set focus.
     const searchRef = useRef(); 
     
+    // On change to input, set local query state
     function localChange (e) {
         setLocalQuery(e.target.value);
     }
@@ -15,13 +16,18 @@ export default function Form ( { liftUpQuery } ) {
     // On form submit, lift localQuery to App component. At that point, it's passed down to Search, which will render the results
     function localSubmit (e) {
         e.preventDefault(); 
+        // Lift the local query state up to App
         liftUpQuery(localQuery);
+        // Reset local query
         setLocalQuery('');
     }
 
     useEffect(
         // Set focus on the input element
-        () => searchRef.current.focus()
+        () => {
+            searchRef.current.focus();
+            console.log("Form rendered or updated.");
+        }
     );
 
     return (
@@ -53,6 +59,6 @@ export default function Form ( { liftUpQuery } ) {
                     <path d="M0 0h24v24H0z" fill="none" />
                 </svg>
             </button>
-        </form>
+        </form>       
     );
 }
