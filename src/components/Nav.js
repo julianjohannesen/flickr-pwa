@@ -20,6 +20,11 @@ export default function Nav() {
                         Wombats
                     </NavLink>
                 </li>
+                {/* <li>
+                    <NavLink to={'/search'}>
+                        Search
+                    </NavLink>
+                </li> */}
             </ul>
         </nav>
     );

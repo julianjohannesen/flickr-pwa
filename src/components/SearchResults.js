@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory, useLocation } from "react-router-dom";
 import PhotoContainer from './PhotoContainer';
 import { buildURL } from '../js/buildURL.js';
 
-export default function Search({ query, setUpdateFlag }) {
+export default function SearchResults({ query, setUpdateFlag }) {
 
     // Store the loading state and any returned data
-    const [ loading, setLoading ] = useState(true);
+    const [ loading, setLoading ] = useState(false);
     const [ Data, setData ] = useState({});
 
-    const params = useParams();
-    const location = useLocation();
-    const history = useHistory();
-    // Build the Flickr API URL endpoint with the query plugged in
-    const url = buildURL(query);
+    // Build the Flickr API URL endpoint with the query plugged in, provided that there is a query. Otherwise set it to an empty string.
+    const url = query ? buildURL(query) : null;
 
     useEffect(
         () => {
             // This function is documented in the Cuties component
-            async function wrapperFunction(){  
+            async function fetchData(){  
                 try {
                     setLoading(true);
                     const resp = await fetch(url);
@@ -31,31 +27,29 @@ export default function Search({ query, setUpdateFlag }) {
                     }
                 }
                 catch (error) {
-                    console.error("Caught in wrapperFunction: ", error);
-                    throw new Error("Caught in wrapperFunction: " + error)
+                    console.error("Caught in fetchData: ", error);
+                    throw new Error("Caught in fetchData: " + error)
                 }
                 finally {
                     console.log("The data: \n", Data);
                     setLoading(false);
                 }
             }
-            wrapperFunction(url);
-
-            // Reset the update flag
-            setUpdateFlag(false);
-            console.log("Search rendered or updated.\n", "The url: \n", url,"\nThe query: \n", query, "\nHow about Params? \n", params, location, history);
+            
+            // If there's a query and the URL has been built, then fetch the data
+            if (query && url) {
+                fetchData(url);
+            }
         }
         , [query]
     );
 
     return (
-
         <PhotoContainer
             loading={loading}
             data={Data}
             query={query}
         />
-
     );
 
 }

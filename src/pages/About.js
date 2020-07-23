@@ -1,11 +1,11 @@
 import React from 'react';
-import SearchContainer from '../components/SearchContainer.js';
+import FormContainer from '../components/FormContainer.js';
 
-export default function about() {
+export default function About() {
     return (
         <>
-        <SearchContainer />
-        <div style={{ textAlign: 'left', width: '50%', marginLeft: '25%' }}>
+            <FormContainer />
+            <div style={{ textAlign: 'left', width: '50%', marginLeft: '25%' }}>
             <h1 id="flickr-pwa">Flickr PWA</h1>
             <h2 id="what-is-this-">What is this?</h2>
             <p>

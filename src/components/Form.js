@@ -13,7 +13,7 @@ export default function Form ( { liftUpQuery } ) {
         setLocalQuery(e.target.value);
     }
 
-    // On form submit, lift localQuery to App component. At that point, it's passed down to Search, which will render the results
+    // On form submit, lift localQuery to container. At that point, it's passed down to Search, which will render the results
     function localSubmit (e) {
         e.preventDefault(); 
         // Lift the local query state up to App
@@ -26,7 +26,6 @@ export default function Form ( { liftUpQuery } ) {
         // Set focus on the input element
         () => {
             searchRef.current.focus();
-            console.log("Form rendered or updated.");
         }
     );
 

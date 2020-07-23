@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import PhotoContainer from "../components/PhotoContainer";
 import { buildURL } from "../js/buildURL";
-import SearchContainer from "../components/SearchContainer";
+import FormContainer from "../components/FormContainer";
 
 export default function Cuties () {
 
@@ -60,7 +60,7 @@ export default function Cuties () {
     
     return(
         <>
-            <SearchContainer />
+            <FormContainer />
             <PhotoContainer 
                 loading = {loading}
                 data = {Data[cuteAnimal]}
