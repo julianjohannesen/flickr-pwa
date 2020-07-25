@@ -7,7 +7,7 @@ export default function NoMatch() {
     return (
         <div>
             <FormContainer />
-            <h2>Route/Page Not Found</h2>
+            <h2>The request route was not found.</h2>
             <h3>
                 Sorry. There does not appear to be a match for <strong><code>{location.pathname}</code></strong>. 
             </h3>

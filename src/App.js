@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './css/styles.css';
+import { ErrorHandler } from "./components/ErrorHandler.js"
 import Nav from './components/Nav.js';
 import Search from './pages/Search.js';
 import Cuties from './pages/Cuties.js';
@@ -11,30 +12,31 @@ export default function App () {
 
     return (
         <div className="App">
-            <h1>Search for Photos</h1>
 
             <Router>
+                <h1>Search for Photos</h1>
                 <Nav />
-                <Switch>
-                    
-                    <Route exact path="/search">
-                        <Search />
-                    </Route>
+                <ErrorHandler>
+                    <Switch>
+                        
+                        <Route exact path="/search">
+                            <Search />
+                        </Route>
 
-                    <Route exact path={["/hedgehogs", "/sloths", "/wombats"]}>
-                        <Cuties />
-                    </Route>
+                        <Route exact path={["/hedgehogs", "/sloths", "/wombats"]}>
+                            <Cuties />
+                        </Route>
 
-                    <Route exact path="/">
-                        <About />
-                    </Route>
+                        <Route exact path="/">
+                            <About />
+                        </Route>
 
-                    <Route path="*">
-                        <NoMatch />
-                    </Route>
+                        <Route path="*">
+                            <NoMatch />
+                        </Route>
 
-                </Switch>
-
+                    </Switch>
+                </ErrorHandler>
             </Router>
         </div>
     );

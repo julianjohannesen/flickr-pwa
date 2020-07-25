@@ -1,46 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import PhotoContainer from './PhotoContainer';
-import { buildURL } from '../js/buildURL.js';
+import PhotoContainer from './PhotoContainer.js';
+import { useFetch } from '../js/useFetch.js';
 
-export default function SearchResults({ query, setUpdateFlag }) {
+export default function SearchResults({ query }) {
 
-    // Store the loading state and any returned data
+    // Store the loading state
     const [ loading, setLoading ] = useState(false);
+    // Store the loading state and any returned data
     const [ Data, setData ] = useState({});
-
-    // Build the Flickr API URL endpoint with the query plugged in, provided that there is a query. Otherwise set it to an empty string.
-    const url = query ? buildURL(query) : null;
-
+    
+    // If there's a query, then call useFetch. Update whenever query changes. 
+    //! This is not allowed. You can't call a custom hook as a callback. The reason is that React needs to call hooks in a particular order to keep track of state, and if you use a hook as a callback, you will mess up that order. We have to keep our calls to hooks synchronous and in order.
     useEffect(
-        () => {
-            // This function is documented in the Cuties component
-            async function fetchData(){  
-                try {
-                    setLoading(true);
-                    const resp = await fetch(url);
-                    if (!resp.ok) {
-                        console.error(`HTTP error! status: ${resp.status}`)
-                        throw new Error(`HTTP error! status: ${resp.status}`);
-                    } else {
-                        const parsedResp = await resp.json();
-                        setData(parsedResp);
-                    }
-                }
-                catch (error) {
-                    console.error("Caught in fetchData: ", error);
-                    throw new Error("Caught in fetchData: " + error)
-                }
-                finally {
-                    console.log("The data: \n", Data);
-                    setLoading(false);
-                }
-            }
-            
-            // If there's a query and the URL has been built, then fetch the data
-            if (query && url) {
-                fetchData(url);
-            }
-        }
+        () => query ? useFetch(query, setLoading, setData) : null
         , [query]
     );
 
