@@ -4,7 +4,7 @@ import { useErrorStatus } from "../components/ErrorHandler.js";
 
 // I'm trying to make this a custom hook, but I'm not really sure what I'm doing. This used to be a wrapper function around fetch that contained the try... catch and other logic needed for fetch(url).
 
-// One thing that's confusing is the difference between a function component and a custom hook. Function components render the UI by returning a React element. They can use hooks. Custom hooks don't return a react element, or do they? Custom hooks can also use other hooks in their body. So, where's the line between a custom hook and a functional component?
+// One thing that's confusing is the difference between a function component and a custom hook. Function components render the UI by returning a React element. They can use hooks in their body. Custom hooks don't return a react element, but can return other values. Custom hooks can also use other hooks in their body. Is the only difference that a function component returns a React element?
 
 
 export async function useFetch(query, setLoading, setData){
