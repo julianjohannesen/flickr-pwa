@@ -54,3 +54,10 @@ Flickr PWA was built with React.js hooks and was bootstrapped with Create React 
 ## Issues
 
 Please report any issues here: https://github.com/TAP-Projects/flickr-pwa/issues
+
+## To do
+
+- Refactor Cuties component to use newer fetch function
+- Add page navigation to page through results
+- Cache results so that using the forward and back buttons doesn't result in a reload
+- Create a function on Netlify to hide me API key. Right now I'm use Netlify's env variables

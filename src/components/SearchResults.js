@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import PhotoContainer from './PhotoContainer.js';
 import { fetchData } from '../js/fetchData.js';
 import { useErrorStatus } from "../components/ErrorHandler.js";
@@ -12,12 +12,6 @@ export default function SearchResults({ query }) {
     // Use the custom useErrorStatus hook to get the error status setter from the ErrorHandler component
     const { setErrorStatusCode } = useErrorStatus();
 
-    const memoizeFetchData = useCallback(
-        () => {
-            fetchData(query, setLoading, setData, setErrorStatusCode)
-        },
-        [query, setLoading, setData, setErrorStatusCode],
-    )
     // If there's a query, then call fetchData. Update whenever query changes. 
     useEffect(
         () => {
