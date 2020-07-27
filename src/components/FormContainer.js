@@ -7,7 +7,7 @@ export default function FormContainer(){
         // The history object allows us to push, i.e. forward the query terms to a new URL while retaining use of the back button
         const history = useHistory();
     
-        // liftUpQuery lifts the query state from the form to here, at which point we pass it down to Search
+        // liftUpQuery lifts the query state from the form to here, at which point we pass it over to Search using history.push and passing in a location object.
         function liftUpQuery (query) {
             // Add the search url to the history stack (and navigate there)
             history.push({

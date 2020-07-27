@@ -28,14 +28,17 @@ export default function About() {
                 <li>Search Flickr for images</li>
                 <li>View search results below the search area</li>
                 <li>
-                    Routes reflected in address bar (but not query parameters)
+                    Routes reflected in address bar, including query parameters
+                </li>
+                <li>
+                    User can type search into address bar with <code>/search?query=whatever</code>
                 </li>
                 <li>
                     Error handling when a search term returns no results (try
                     &#39;@@@&#39;)
                 </li>
                 <li>
-                    Error handling for invalid routes (Please note that this
+                    Error handling for invalid routes and server errors (Please note that this
                     will not work on Netlify. Instead, users will be redirected
                     to the homepage.)
                 </li>
@@ -80,6 +83,10 @@ export default function About() {
                 <strong>Please note</strong> colorette may through an error. Be
                 sure you&#39;re using Node ^14.5.0.
             </p>
+            <p>
+                <strong>Please note</strong> that the linter may report a warning in useEffect. You can ignore it. The warning shows that the callback has dependencies not listed in the dependency array. That's fine, because we actually don't want to update the component when those other dependencies change.
+            </p>
+
             <h2 id="development-notes">Development Notes</h2>
             <p>
                 Flickr PWA was bootstrapped with Create React App and was built using React Hooks. Routing is accomplished with React Router

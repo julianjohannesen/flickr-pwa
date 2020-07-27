@@ -1,5 +1,5 @@
 import React from 'react';
-import { useErrorStatus } from '../components/ErrorHandler.js';
+import { useErrorStatus } from '../src/components/ErrorHandler.js';
 
 // This is Anggelos' fetchData function. It's a custom hook the way that he does it.
 const useQuery = ({ url }) => {

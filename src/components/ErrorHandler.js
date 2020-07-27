@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import NoMatch from '../pages/NoMatch';
+import ServerError from '../pages/ServerError';
 
 // Please note that this component is a modified version of Aggelos Arvanitakis' approach to universal error handling
 
@@ -28,8 +29,6 @@ export function ErrorHandler({ children }) {
         } else if (errorStatusCode >= 500) {
             return <ServerError />
         }
-
-        // TODO more HTTP codes handled here
 
         // The returned children are any child components that appear between our <ErrorHandler> tags.
         return children;

@@ -12,10 +12,9 @@ The app is deployed on Netlify here: https://jj-flickr-pwa.netlify.com/
 
 - Search Flickr for images
 - View search results below the search area
-- Routes reflected in address bar (but not query parameters)
+- Routes reflected in address bar, including query parameters
 - Error handling when a search term returns no results (try '@@@')
-- A faux 404 page for invalid routes (Please note that this will not work on Netlify. Instead, users will be redirected to the homepage.)
-- An About page for information about the project
+- A faux 404 page for invalid routes and server errors (Please note that this will not work on Netlify. Instead, users will be redirected to the homepage.)
 
 ## Local Use
 
@@ -45,6 +44,8 @@ export const apiKey = 'YOUR API KEY GOES HERE';
 ```
 
 **Please note** colorette may through an error. Be sure you're using node ^14.5.0.
+
+**Please note** that the linter may report a warning in useEffect. You can ignore it. The warning shows that the callback has dependencies not listed in the dependency array. That's fine, because we actually don't want to update the component when those other dependencies change.
 
 ## Development Notes
 

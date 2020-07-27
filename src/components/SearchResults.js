@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PhotoContainer from './PhotoContainer.js';
-import { useFetch } from '../js/useFetch.js';
+import { fetchData } from '../js/fetchData.js';
+import { useErrorStatus } from "../components/ErrorHandler.js";
 
 export default function SearchResults({ query }) {
 
@@ -8,11 +9,22 @@ export default function SearchResults({ query }) {
     const [ loading, setLoading ] = useState(false);
     // Store the loading state and any returned data
     const [ Data, setData ] = useState({});
-    
-    // If there's a query, then call useFetch. Update whenever query changes. 
-    //! This is not allowed. You can't call a custom hook as a callback. The reason is that React needs to call hooks in a particular order to keep track of state, and if you use a hook as a callback, you will mess up that order. We have to keep our calls to hooks synchronous and in order.
+    // Use the custom useErrorStatus hook to get the error status setter from the ErrorHandler component
+    const { setErrorStatusCode } = useErrorStatus();
+
+    const memoizeFetchData = useCallback(
+        () => {
+            fetchData(query, setLoading, setData, setErrorStatusCode)
+        },
+        [query, setLoading, setData, setErrorStatusCode],
+    )
+    // If there's a query, then call fetchData. Update whenever query changes. 
     useEffect(
-        () => query ? useFetch(query, setLoading, setData) : null
+        () => {
+            fetchData(query, setLoading, setData, setErrorStatusCode);
+            // Return the clean up function which resets the loading flag
+            return ()=>{console.log("No cleanup")}
+        }
         , [query]
     );
 
