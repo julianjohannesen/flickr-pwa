@@ -1,5 +1,5 @@
 import React from 'react';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import Photo from './Photo';
 import Loading from './Loading';
 
@@ -34,7 +34,7 @@ export default function PhotoContainer({loading, data, query}) {
                 <li className="not-found">
                 <h3>There was an error fetching your request.</h3>
                 <p>
-                    {data.message}
+                    {data?.message}
                 </p>
             </li>
             )

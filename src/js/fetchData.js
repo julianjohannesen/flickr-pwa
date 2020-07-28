@@ -1,20 +1,33 @@
-export function fetchData(url, liftUpState) {
+import { buildURL } from "./buildURL.js";
 
-    // fetchData takes a url string and returns a promise containing the parsed data fetched from the given URL. It also sets the state of data.
-    return fetch(url)
-        .then(checkStatus)
-        .then(res => res.json())
-        .then(data => liftUpState(data))
-        .catch(error => console.log("Looks like there was a problem!", error));
+export async function fetchData(query, setLoading, setData, setErrorStatusCode){
 
-    // If the server responds with 'ok,' then checkStatus resolves the response, passing it along to whatever comes next. Otherwise it reject's the promise, passing along a new error with the response status text included.
-    function checkStatus(response) {
-        if (response.ok) {
-            return Promise.resolve(response);
+    // Build the Flickr API endpoint.
+    const url = query && buildURL(query);
+    
+    try {
+        // Show the loading SVG
+        setLoading(true);
+        // Await fetching the response stream
+        const resp = await fetch(url);
+        // If fetch fails, set the errorStatusCode in ErrorHandler
+        if (!resp.ok) {
+            console.error(`HTTP error during fetch! status: ${resp.status}`);
+            setErrorStatusCode(resp.status);
+        // If fetch succeeds, await the parsing of the stream and then setData. Data lives in the parent component SearchResults.
         } else {
-            // If the server returns a response other than 'ok', then reject the promise and pass along a new Error with the server response's status text.
-            return Promise.reject(new Error(response.statusText));
+            const parsedResp = await resp.json();
+            setData(parsedResp);
         }
+    }
+    // Catch any other errors
+    catch (error) {
+        console.error("Caught in fetch: ", error);
+        setErrorStatusCode(error.status);
+    }
+    // When all is said and done, hide the loading SVG
+    finally {
+        setLoading(false);
     }
 
 }

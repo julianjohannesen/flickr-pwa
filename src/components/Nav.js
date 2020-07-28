@@ -1,35 +1,30 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function Nav({ liftUpQuery }) {
+export default function Nav() {
     return (
         <nav className="main-nav">
             <ul>
                 <li>
-                    <NavLink
-                        onClick={()=>liftUpQuery('hedgehogs')}
-                        to={`/?query=hedgehogs`}
-                        activeClassName="active"
-                    >
+                    <NavLink to={`/hedgehogs`} activeClassName="active">
                         Hedgehogs
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink
-                        onClick={()=>liftUpQuery('sloths')}
-                        to={`/?query=sloths`}
-                    >
+                    <NavLink to={`/sloths`}>
                         Sloths
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink
-                        onClick={()=>liftUpQuery('wombats')}
-                        to={`/?query=wombats`}
-                    >
+                    <NavLink to={`/wombats`}>
                         Wombats
                     </NavLink>
                 </li>
+                {/* <li>
+                    <NavLink to={'/search'}>
+                        Search
+                    </NavLink>
+                </li> */}
             </ul>
         </nav>
     );

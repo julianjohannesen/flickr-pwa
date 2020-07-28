@@ -1,36 +1,43 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './css/styles.css';
-import Home from './pages/Home';
-import About from './pages/About';
-import NoMatch from './pages/NoMatch';
+import { ErrorHandler } from "./components/ErrorHandler.js"
+import Nav from './components/Nav.js';
+import Search from './pages/Search.js';
+import Cuties from './pages/Cuties.js';
+import About from './pages/About.js';
+import NoMatch from './pages/NoMatch.js';
 
-class App extends Component {
-    render() {
-        return (
-            <div className="App">
-                <Router>
+export default function App () {
+
+    return (
+        <div className="App">
+
+            <Router>
+                <h1>Search for Photos</h1>
+                <Nav />
+                <ErrorHandler>
                     <Switch>
-                        {/*<Route exact path="/" component={Home} /> */}
+                        
+                        <Route exact path="/search">
+                            <Search />
+                        </Route>
 
-                        <Route
-                            exact
-                            path={['/', '/?query=:text']}
-                            component={Home}
-                        />
+                        <Route exact path={["/hedgehogs", "/sloths", "/wombats"]}>
+                            <Cuties />
+                        </Route>
 
-                        <Route exact path="/about">
+                        <Route exact path="/">
                             <About />
                         </Route>
 
                         <Route path="*">
                             <NoMatch />
                         </Route>
-                    </Switch>
-                </Router>
-            </div>
-        );
-    }
-}
 
-export default App;
+                    </Switch>
+                </ErrorHandler>
+            </Router>
+        </div>
+    );
+}
