@@ -1,7 +1,4 @@
-
-if (process.env.NODE_ENV !== "production") {
-    import { apiKey } from "../config.js";
-}
+import { apiKey } from "../config.js";
 
 // Plug query parameters into url
 export function buildURL(query) {
