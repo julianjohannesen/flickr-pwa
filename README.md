@@ -43,7 +43,7 @@ The content will be:
 export const apiKey = 'YOUR API KEY GOES HERE';
 ```
 
-**Please note** colorette may throw an error. Be sure you're using node ^14.5.0.
+**Please note** that colorette may throw an error. Be sure you're using node ^14.5.0.
 
 **Please note** that the linter may report a warning in useEffect. You can ignore it. The warning shows that the callback has dependencies not listed in the dependency array. That's fine, because we actually don't want to update the component when those other dependencies change.
 
