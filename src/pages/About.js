@@ -80,7 +80,7 @@ export default function About() {
                 </code>
             </pre>
             <p>
-                <strong>Please note</strong> colorette may through an error. Be
+                <strong>Please note</strong> colorette may throw an error. Be
                 sure you&#39;re using Node ^14.5.0.
             </p>
             <p>
