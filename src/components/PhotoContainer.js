@@ -1,6 +1,5 @@
 import React from 'react';
-import { Consumer } from './Context';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import Photo from './Photo';
 import Loading from './Loading';
 import NoResults from './NoResults';
@@ -25,28 +24,25 @@ export default function PhotoContainer() {
         // If there's been an error on Flickr's end
         } else {
             // Note that the message property only appears in the response when there's been a error, e.g. a malformed parameter.
-            return (<ServerError message={data.message} />);
+            return (
+                <li className="not-found">
+                <h3>There was an error fetching your request.</h3>
+                <p>
+                    {data?.message}
+                </p>
+            </li>
+            )
         }
     };
 
-    
+    query = query ? query.split(' ').map(word=>word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : '';
+
     return (
-        <Consumer>
-            { context => { 
-
-                // NOTE: This is a good candidate for a tagged template literal
-                let query = context.query ? context.query.split(' ').map(word=>word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : '';
-
-                return (
-                <div className="photo-container">
-                    <h2>Results for {query}</h2>
-                    
-                    <ul>
-                        { context.loading ? <Loading /> : generatePhotos(context.data) }
-                    </ul>
-                </div>
-                );
-            }}
-        </Consumer>
+        <div className="photo-container">
+            <h2>Results for {query}</h2>
+            <ul>
+                { loading ? <Loading /> : generatePhotos(data) }
+            </ul>
+        </div>
     );
 }
