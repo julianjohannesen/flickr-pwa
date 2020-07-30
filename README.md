@@ -60,4 +60,5 @@ Please report any issues here: https://github.com/TAP-Projects/flickr-pwa/issues
 - Refactor Cuties component to use newer fetch function
 - Add page navigation to page through results
 - Cache results so that using the forward and back buttons doesn't result in a reload
-- Create a function on Netlify to hide me API key. Right now I'm use Netlify's env variables
+- Create a function on Netlify to hide my API key. Right now I'm using Netlify's env variables from the control panel and process.env.NODE_ENV
+- 
