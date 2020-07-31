@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { buildURL } from "../js/buildURL.js";
 import { useErrorStatus } from "./ErrorHandler.js";
+import { useCache } from "./DataCache.js"
+import { buildURL } from "../js/buildURL.js";
+import { isEmpty } from "lodash";
 import PhotoContainer from "./PhotoContainer.js";
 
-export default function useFetch(query){
+export default function SearchResults({query}){
 
-    // Store the loading state, the page heading, and the data
-    const [ data, setData ] = useState({});
     const [ loading, setLoading ] = useState(false);
     // Set the error status, if applicable
+    const [ pageHeading, setPageHeading ] = useState('Nothing ;)')
     const { setErrorStatusCode } = useErrorStatus();
+    const { data, setData } = useCache();
 
     // Capitalize the first letter of each query term
-    function formatPageHeading(query){
-        if(query){
-            return query.split(' ').map( word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        } else {
-            return 'No query';
-        }
+    function formatPageHeading(queryTerms){ 
+        return queryTerms.split(' ').map( word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');  
     }
     
     useEffect( 
-        // Callback wrapper. useEffect will not allow a function inside it to return a promise, so we define a function here that itself defines our fetch function and then immediately calls it.  The wrapper's only dependency is "query"
+        // Callback wrapper. useEffect will not allow a function inside it to return a promise, so we define a function here that itself defines our fetch function and then immediately calls it.  The wrapper's only dependency is "query".
         () => {
             // Async wrapper. We need an async wrapper to allow use to await our fetch results. Some people create a separate "handleAsync", but it's not really necessary here.
             async function fetchIt() {
+                console.log(data);
+                // Exit if the data is already cached
+                if(!isEmpty(data[query])) return;
                 try {
                     // Show the loading SVG
                     setLoading(true);
@@ -36,8 +37,9 @@ export default function useFetch(query){
                         setErrorStatusCode(resp.status);
                     // If fetch succeeds, await the parsing of the stream and then setData. 
                     } else {
+                        setPageHeading(formatPageHeading(query));
                         const parsedResp = await resp.json();
-                        setData(parsedResp);
+                        setData({[query]: parsedResp});
                     }
                 }
                 // Catch any other errors
@@ -58,9 +60,9 @@ export default function useFetch(query){
 
     return (
         <PhotoContainer
-            data={data}
+            data={data[query]}
             loading={loading}
-            pageHeading={formatPageHeading(query)}
+            pageHeading={pageHeading}
         />
     )
 

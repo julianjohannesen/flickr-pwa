@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import NoMatch from '../pages/NoMatch';
 import ServerError from '../pages/ServerError';
 
-// Please note that this component is a modified version of Aggelos Arvanitakis' approach to universal error handling
+// Please note that this component is a modified version of Aggelos Arvanitakis' approach to universal error handling. It's overkill here, but it was very instructive.
 
 // The context here allows components lower down the tree to trigger the display of an error page. This is useful for a bunch of reasons that Aggelos talks about here: https://www.newline.co/@3nvi/centralizing-api-error-handling-in-react-apps--80296494
 const ErrorStatusContext = createContext();
