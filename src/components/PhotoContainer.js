@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Photo from './Photo';
 import Loading from './Loading';
 
-export default function PhotoContainer({loading, data, query}) {
+export default function PhotoContainer({loading, data, pageHeading}) {
     // Map over the photos array and call Photo for each photo
     const generatePhotos = (data) => {
         // Check for errors
@@ -41,11 +41,9 @@ export default function PhotoContainer({loading, data, query}) {
         }
     };
 
-    query = query ? query.split(' ').map(word=>word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : '';
-
     return (
         <div className="photo-container">
-            <h2>Results for {query}</h2>
+            <h2>Results for {pageHeading}</h2>
             <ul>
                 { loading ? <Loading /> : generatePhotos(data) }
             </ul>
