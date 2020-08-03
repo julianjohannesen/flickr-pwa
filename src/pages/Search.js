@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
-import FormContainer from '../components/FormContainer';
+// import FormContainer from '../components/FormContainer';
 import SearchResults from '../components/SearchResults';
 
 // Custom hook 'useQuery' wraps the query string found in useLocation().search in the browser's URLSearchParams API, providing a bunch of methods. Below we get the query with queryParams.get("query")
@@ -15,7 +15,7 @@ export default function Search() {
 
     return (
         <>
-            <FormContainer />
+            {/* <FormContainer /> */}
             <SearchResults query={queryParams.get("query")} />
         </>
     );

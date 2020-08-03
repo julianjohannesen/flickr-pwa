@@ -2,10 +2,10 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Photo from './Photo';
 import Loading from './Loading';
-import NoResults from './NoResults';
-import ServerError from './ServerError';
+// import NoResults from './NoResults';
+// import ServerError from './ServerError';
 
-export default function PhotoContainer() {
+export default function PhotoContainer({query, data, loading}) {
     // Map over the photos array and call Photo for each photo
     const generatePhotos = (data) => {
         // Check for errors
@@ -19,7 +19,7 @@ export default function PhotoContainer() {
                 ));
             // In the case that the query really has no photos associated with it
             } else {
-                return (<NoResults />);
+                return "hello"
             }
         // If there's been an error on Flickr's end
         } else {
