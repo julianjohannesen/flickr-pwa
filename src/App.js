@@ -7,7 +7,7 @@ import Search from './pages/Search.js';
 import Cuties from './pages/Cuties.js';
 import About from './pages/About.js';
 import NoMatch from './pages/NoMatch.js';
-import { ProvideCache } from './components/DataCache';
+import { CacheProvider } from './components/DataCache';
 
 export default function App() {
     return (
@@ -15,7 +15,7 @@ export default function App() {
             <Router>
                 {/*note that ErrorHandler must be inside Router, because it uses React Router's History object */}
                 <ErrorHandler>
-                    <ProvideCache>
+                    <CacheProvider>
                         <h1>Search for Photos</h1>
                         <Nav />
                         <Switch>
@@ -38,7 +38,7 @@ export default function App() {
                                 <NoMatch />
                             </Route>
                         </Switch>
-                    </ProvideCache>
+                    </CacheProvider>
                 </ErrorHandler>
             </Router>
         </div>
