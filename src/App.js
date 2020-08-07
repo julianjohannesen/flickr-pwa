@@ -19,16 +19,16 @@ export default function App() {
                         <h1>Search for Photos</h1>
                         <Nav />
                         <Switch>
-                            <Route exact path="/search">
+                            <Route exact path={["/search", '/hedgehogs', '/sloths', '/wombats']}>
                                 <Search />
                             </Route>
 
-                            <Route
+                            {/* <Route
                                 exact
                                 path={['/hedgehogs', '/sloths', '/wombats']}
                             >
                                 <Cuties />
-                            </Route>
+                            </Route> */}
 
                             <Route exact path="/">
                                 <About />

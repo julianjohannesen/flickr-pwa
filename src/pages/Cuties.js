@@ -1,71 +1,74 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import PhotoContainer from "../components/PhotoContainer";
-import { buildURL } from "../js/buildURL";
-import FormContainer from "../components/FormContainer";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { buildURL } from '../js/buildURL';
+import { useErrorStatus } from '../components/ErrorHandler.js';
+import { useCache } from '../components/DataCache.js';
+import FormContainer from '../components/FormContainer';
+import PhotoContainer from '../components/PhotoContainer2';
 
-export default function Cuties () {
+export default function Cuties() {
 
-    const path = useLocation().pathname;
-    const cuteAnimal = path.substr(1);
-
-    // The Flickr URL with the query parameters plugged in
-    const url = buildURL(cuteAnimal);
-
-    // Set state for loading and Data
-    let [ loading, setLoading ] = useState(true);
-    let [ Data, setData ] = useState({
-        hedgehogs: {},
-        sloths: {},
-        wombats: {}
-    });
-
-    // Fetch data
-    // Including the empty array as the 2nd argument to useEffect calls useEffect only on mount and not on update. This prevents an infinite fetch loop.
-    useEffect( () => {
-        
-        // This wrapper function allows us to use async (which always returns a promise) inside useEffect even though hooks can only return a clean up function
-        async function wrapperFunction (url) {
-            
-            try {
-                setLoading(true);
-                // Fetch the stream and store it in resp
-                const resp = await fetch(url);
-                // Throw an error if there was a problem with the request
-                if (!resp.ok) {
-                    console.error(`HTTP error! status: ${resp.status}`);
-                    throw new Error(`HTTP error! status: ${resp.status}`);
-                } else {
-                    // Parse the resp stream promise as JSON
-                    const parsedResp = await resp.json();
-                    // Set Data's state to the parsed stream
-                    setData({ ...Data, [cuteAnimal]:parsedResp });
-                }
-            }
-            catch (error) {
-                console.error("Caught in wrapperFunction: ", error);
-                throw new Error("Caught in wrapperFunction: " + error)
-            }
-            finally {
-                console.log(Data);
-                setLoading(false);
-            }
-        }
-        const animalData = Object.keys(Data[cuteAnimal]) ?? []
-        // Only call the effect if the data isn't already present
-        if (animalData.length === 0) {
-            wrapperFunction(url);
-        }
-    }, [url] );
+    // The functionality of this component is documented in the SearchResults component
     
-    return(
-        <>
-            <FormContainer />
-            <PhotoContainer 
-                loading = {loading}
-                data = {Data[cuteAnimal]}
-                query = {cuteAnimal}
-            />
-        </>
-        );
+    // The query is taken from the path name for the cute animals pages (hedgehogs, etc.)
+    let path = useLocation().pathname;
+    let query = "Keep it empty for now";
+    
+    // Local state
+    const [ loading, setLoading ] = useState(false);
+
+    // Imported
+    const { cache, setCache } = useCache();
+    const { setErrorStatusCode } = useErrorStatus();
+
+    function formatPageHeading(queryTerms) {
+        return queryTerms
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+
+    useEffect(() => {
+        async function fetchIt() {
+            query = path.substr(1);
+            console.log("here's the cache: ", cache, "\nand here's the loading status: ", loading);
+            if (typeof cache[query] !== 'undefined') return;
+            try {
+                await setLoading(true);
+                const resp = await fetch(buildURL(query));
+                if (!resp.ok) {
+                    console.error(
+                        `HTTP error during fetch. Status: ${resp.status}`
+                    );
+                    setErrorStatusCode(resp.status);
+                } else {
+                    const parsedResp = await resp.json();
+                    await setCache( prevCache => ({
+                        ...prevCache,
+                        ...{
+                            [query]: {
+                                pageHeading: formatPageHeading(query), 
+                                data: parsedResp
+                            }
+                        },
+                    }));
+                }
+            } catch (error) {
+                console.error('Caught in fetch: ', error);
+                setErrorStatusCode(error.status);
+            } finally {
+                await setLoading(false);
+            }
+        }
+        fetchIt();
+    }, [query]);
+
+    if(cache[query] !== "undefined"){
+        return (
+            <>
+                <FormContainer/>
+                <PhotoContainer loading={loading} query={query} />
+            </>
+        )
+    } 
 }
