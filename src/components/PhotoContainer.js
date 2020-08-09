@@ -1,7 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Photo from './Photo';
-import Loading from './Loading';
 
 export default function PhotoContainer({data, pageHeading}) {
     // Map over the photos array and call Photo for each photo

@@ -9,7 +9,7 @@ export default function Nav() {
                     <NavLink 
                         to={{
                             pathname: "/hedgehogs",
-                            state: "Hedgehogs"
+                            state: "Cute Baby Hedgehogs"
                         }} 
                         activeClassName="active"
                     >
@@ -20,7 +20,7 @@ export default function Nav() {
                     <NavLink 
                         to={{
                             pathname: "/sloths",
-                            state: "Sloths"
+                            state: "Cute Baby Sloths"
                         }} 
                     >
                         Sloths
@@ -30,7 +30,7 @@ export default function Nav() {
                     <NavLink 
                         to={{
                             pathname: "/wombats",
-                            state: "Wombats"
+                            state: "Cute Baby Wombats"
                         }} 
                     >
                         Wombats
