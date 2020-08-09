@@ -4,7 +4,7 @@ import './css/styles.css';
 import { ErrorHandler } from './components/ErrorHandler.js';
 import Nav from './components/Nav.js';
 import Search from './pages/Search.js';
-import Cuties from './pages/Cuties.js';
+// import Cuties from './pages/Cuties.js';
 import About from './pages/About.js';
 import NoMatch from './pages/NoMatch.js';
 import { CacheProvider } from './components/DataCache';

@@ -1,10 +1,12 @@
 import React from 'react';
-import FormContainer from '../components/FormContainer.js';
+// import FormContainer from '../components/FormContainer.js';
+import { ExampleComponent } from "../components/study-case-useReducer-Context.js"
 
 export default function About() {
     return (
         <>
-            <FormContainer />
+            <ExampleComponent />
+            {/* <FormContainer /> */}
             <div style={{ textAlign: 'left', width: '50%', marginLeft: '25%' }}>
             <h1 id="flickr-pwa">Flickr PWA</h1>
             <h2 id="what-is-this-">What is this?</h2>

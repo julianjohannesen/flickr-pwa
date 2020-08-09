@@ -60,6 +60,25 @@ export default function Cuties() {
                 await setLoading(false);
             }
         }
+<<<<<<< HEAD
+        const animalData = Object.keys(Data[cuteAnimal]) ?? []
+        // Only call the effect if the data isn't already present
+        if (animalData.length === 0) {
+            wrapperFunction(url);
+        }
+    }, [url] );
+    
+    return(
+        <>
+            {/* <FormContainer /> */}
+            <PhotoContainer 
+                loading = {loading}
+                data = {Data[cuteAnimal]}
+                query = {cuteAnimal}
+            />
+        </>
+        );
+=======
         fetchIt();
     }, [query]);
 
@@ -71,4 +90,5 @@ export default function Cuties() {
             </>
         )
     } 
+>>>>>>> origin/update-cuties
 }

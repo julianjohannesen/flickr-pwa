@@ -16,15 +16,7 @@ export default function PhotoContainer({data, pageHeading}) {
                 ));
             // In the case that the query really has no photos associated with it
             } else {
-                return (
-                    <li className="not-found">
-                        <h3>No Results Found</h3>
-                        <p>
-                            Your search did not return any results. Please try
-                            again.
-                        </p>
-                    </li>
-                );
+                return "hello"
             }
         // If there's been an error on Flickr's end
         } else {

@@ -44,7 +44,6 @@ export function ErrorHandler({ children }) {
     // We expose the context's value down to our components, while also making sure to render the proper content to the screen
     return (
         <ErrorStatusContext.Provider value={contextPayload}>
-            {/* I could replace this with <RenderContent>, right? */}
             {renderContent()}
         </ErrorStatusContext.Provider>
     );
