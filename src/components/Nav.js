@@ -6,25 +6,37 @@ export default function Nav() {
         <nav className="main-nav">
             <ul>
                 <li>
-                    <NavLink to={`/hedgehogs`} activeClassName="active">
-                        Hedgehogs
+                    <NavLink 
+                        to={{
+                            pathname: "/hedgehogs",
+                            state: "Hedgehogs"
+                        }} 
+                        activeClassName="active"
+                    >
+                        Hedgies
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={`/sloths`}>
+                    <NavLink 
+                        to={{
+                            pathname: "/sloths",
+                            state: "Sloths"
+                        }} 
+                    >
                         Sloths
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={`/wombats`}>
+                    <NavLink 
+                        to={{
+                            pathname: "/wombats",
+                            state: "Wombats"
+                        }} 
+                    >
                         Wombats
                     </NavLink>
                 </li>
-                {/* <li>
-                    <NavLink to={'/search'}>
-                        Search
-                    </NavLink>
-                </li> */}
+                
             </ul>
         </nav>
     );
